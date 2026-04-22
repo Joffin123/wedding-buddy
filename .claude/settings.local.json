@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(npx eslint *)",
+      "Bash(npm uninstall *)",
+      "Bash(npm list *)",
+      "Bash(node supabase/bootstrap.mjs)",
+      "Bash(npm run *)"
+    ]
+  }
+}
