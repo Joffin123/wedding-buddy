@@ -116,8 +116,14 @@ export async function POST(req: Request) {
   console.log("[chat] ▶ POST /api/chat");
 
   try {
-    const body = (await req.json()) as { messages?: UIMessage[] };
+    const body = (await req.json()) as {
+      messages?: UIMessage[];
+      language?: "en" | "ml";
+      weddingContext?: { crowd: string; place: string; foodType: string };
+    };
     const messages = body?.messages ?? [];
+    const language = body?.language ?? "en";
+    const ctx = body?.weddingContext;
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return Response.json({ error: "messages is required" }, { status: 400 });
@@ -134,9 +140,20 @@ export async function POST(req: Request) {
       );
     }
 
+    const languageAddendum =
+      language === "ml"
+        ? "\n\nIMPORTANT — LANGUAGE OVERRIDE: The user has selected Malayalam (മലയാളം). All your conversational replies MUST be written entirely in Malayalam script. Tool calls and internal JSON remain in English, but every word the user reads must be in Malayalam."
+        : "";
+
+    const contextAddendum = ctx
+      ? `\n\nUser onboarding preferences (collected before the chat opened — treat as known context, do NOT ask about these again):\n- Expected guests: ${ctx.crowd}\n- Preferred location: ${ctx.place}\n- Food style: ${ctx.foodType}\nFactor these into every recommendation automatically.`
+      : "";
+
+    const systemPrompt = SYSTEM_PROMPT + languageAddendum + contextAddendum;
+
     const result = streamText({
       model: anthropic(MODEL_ID),
-      system: SYSTEM_PROMPT,
+      system: systemPrompt,
       messages: await convertToModelMessages(messages),
       temperature: 0.6,
       stopWhen: stepCountIs(4),
