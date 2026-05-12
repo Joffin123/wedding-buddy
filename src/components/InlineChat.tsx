@@ -95,6 +95,7 @@ const stepVariants = {
 // ─── Mascot SVG ───────────────────────────────────────────────────────────────
 
 function WeddingMascot() {
+  // 1. Outer motion.div: Handles the initial spring "pop-in"
   return (
     <motion.div
       initial={{ scale: 0, rotate: -15 }}
@@ -102,55 +103,65 @@ function WeddingMascot() {
       transition={{ type: "spring", stiffness: 220, damping: 16, delay: 0.1 }}
       className="mx-auto mb-5 h-28 w-28 drop-shadow-xl"
     >
-      <svg viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Wedding Buddy mascot">
-        <defs>
-          <linearGradient id="headG" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#fde8ec" />
-            <stop offset="100%" stopColor="#fce7f3" />
-          </linearGradient>
-          <linearGradient id="bodyG" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#E8739B" />
-            <stop offset="100%" stopColor="#6D5AE6" />
-          </linearGradient>
-          <radialGradient id="cheekG">
-            <stop offset="0%" stopColor="#f9a8d4" stopOpacity="0.7" />
-            <stop offset="100%" stopColor="#f9a8d4" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-        {/* Flower crown */}
-        <circle cx="36" cy="22" r="8" fill="#E8739B" opacity="0.9" />
-        <circle cx="60" cy="14" r="9" fill="#fbbf24" opacity="0.9" />
-        <circle cx="84" cy="22" r="8" fill="#a78bfa" opacity="0.9" />
-        <circle cx="28" cy="32" r="6" fill="#fda4af" opacity="0.8" />
-        <circle cx="92" cy="32" r="6" fill="#c4b5fd" opacity="0.8" />
-        {/* Stems */}
-        <path d="M36 30 Q48 38 60 40" stroke="#86efac" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M60 23 L60 40" stroke="#86efac" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M84 30 Q72 38 60 40" stroke="#86efac" strokeWidth="2.5" strokeLinecap="round" />
-        {/* Head */}
-        <circle cx="60" cy="68" r="32" fill="url(#headG)" />
-        {/* Eyes */}
-        <ellipse cx="48" cy="63" rx="5.5" ry="6.5" fill="white" />
-        <ellipse cx="72" cy="63" rx="5.5" ry="6.5" fill="white" />
-        <circle cx="49.5" cy="64" r="4" fill="#2A1A33" />
-        <circle cx="73.5" cy="64" r="4" fill="#2A1A33" />
-        <circle cx="51" cy="62" r="1.5" fill="white" />
-        <circle cx="75" cy="62" r="1.5" fill="white" />
-        {/* Smile */}
-        <path d="M46 78 Q60 90 74 78" stroke="#2A1A33" strokeWidth="2.8" strokeLinecap="round" fill="none" />
-        {/* Cheeks */}
-        <circle cx="38" cy="74" r="9" fill="url(#cheekG)" />
-        <circle cx="82" cy="74" r="9" fill="url(#cheekG)" />
-        {/* Body */}
-        <path d="M28 97 Q60 112 92 97 L95 130 L25 130 Z" fill="url(#bodyG)" />
-        {/* Bow tie */}
-        <path d="M50 97 L60 104 L70 97 L60 92 Z" fill="#fff" opacity="0.85" />
-        {/* Ring sparkle */}
-        <circle cx="98" cy="58" r="4" fill="#fbbf24" opacity="0.9" />
-        <path d="M96 56 L100 60 M100 56 L96 60" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        <circle cx="22" cy="75" r="3" fill="#E8739B" opacity="0.7" />
-        <path d="M21 74 L23 76 M23 74 L21 76" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
-      </svg>
+      {/* 2. Inner motion.div: Handles the infinite floating/hovering animation */}
+      <motion.div
+        animate={{ y: [0, -8, 0] }}
+        transition={{
+          duration: 3,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <svg viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Wedding Buddy mascot">
+          <defs>
+            <linearGradient id="headG" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#fde8ec" />
+              <stop offset="100%" stopColor="#fce7f3" />
+            </linearGradient>
+            <linearGradient id="bodyG" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#E8739B" />
+              <stop offset="100%" stopColor="#6D5AE6" />
+            </linearGradient>
+            <radialGradient id="cheekG">
+              <stop offset="0%" stopColor="#f9a8d4" stopOpacity="0.7" />
+              <stop offset="100%" stopColor="#f9a8d4" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          {/* Flower crown */}
+          <circle cx="36" cy="22" r="8" fill="#E8739B" opacity="0.9" />
+          <circle cx="60" cy="14" r="9" fill="#fbbf24" opacity="0.9" />
+          <circle cx="84" cy="22" r="8" fill="#a78bfa" opacity="0.9" />
+          <circle cx="28" cy="32" r="6" fill="#fda4af" opacity="0.8" />
+          <circle cx="92" cy="32" r="6" fill="#c4b5fd" opacity="0.8" />
+          {/* Stems */}
+          <path d="M36 30 Q48 38 60 40" stroke="#86efac" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M60 23 L60 40" stroke="#86efac" strokeWidth="2.5" strokeLinecap="round" />
+          <path d="M84 30 Q72 38 60 40" stroke="#86efac" strokeWidth="2.5" strokeLinecap="round" />
+          {/* Head */}
+          <circle cx="60" cy="68" r="32" fill="url(#headG)" />
+          {/* Eyes */}
+          <ellipse cx="48" cy="63" rx="5.5" ry="6.5" fill="white" />
+          <ellipse cx="72" cy="63" rx="5.5" ry="6.5" fill="white" />
+          <circle cx="49.5" cy="64" r="4" fill="#2A1A33" />
+          <circle cx="73.5" cy="64" r="4" fill="#2A1A33" />
+          <circle cx="51" cy="62" r="1.5" fill="white" />
+          <circle cx="75" cy="62" r="1.5" fill="white" />
+          {/* Smile */}
+          <path d="M46 78 Q60 90 74 78" stroke="#2A1A33" strokeWidth="2.8" strokeLinecap="round" fill="none" />
+          {/* Cheeks */}
+          <circle cx="38" cy="74" r="9" fill="url(#cheekG)" />
+          <circle cx="82" cy="74" r="9" fill="url(#cheekG)" />
+          {/* Body */}
+          <path d="M28 97 Q60 112 92 97 L95 130 L25 130 Z" fill="url(#bodyG)" />
+          {/* Bow tie */}
+          <path d="M50 97 L60 104 L70 97 L60 92 Z" fill="#fff" opacity="0.85" />
+          {/* Ring sparkle */}
+          <circle cx="98" cy="58" r="4" fill="#fbbf24" opacity="0.9" />
+          <path d="M96 56 L100 60 M100 56 L96 60" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx="22" cy="75" r="3" fill="#E8739B" opacity="0.7" />
+          <path d="M21 74 L23 76 M23 74 L21 76" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
+      </motion.div>
     </motion.div>
   );
 }
