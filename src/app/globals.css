@@ -15,7 +15,7 @@
 
 @layer base {
   html, body {
-    background: linear-gradient(180deg, #FFF8F2 0%, #FDE8EC 45%, #EEF0FF 100%);
+    background: #FFFFFF;
     color: #2A1A33;
   }
 }

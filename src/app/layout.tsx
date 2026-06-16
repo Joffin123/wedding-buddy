@@ -52,11 +52,11 @@ export default function RootLayout({
                 </span>
               </Link>
 
-              <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-[#2A1A33]/70">
+              <nav className="hidden md:flex items-center gap-7 text-sm font-semibold text-[#2A1A33]/70">
                 {[
                   { href: "/venues", label: "Venues" },
+                  { href: "/budget", label: "Budget" },
                   { href: "/vendors", label: "Vendors" },
-                  { href: "/features", label: "Features" },
                   { href: "/contact", label: "Contact" },
                 ].map((l) => (
                   <Link key={l.href} href={l.href} className="relative group transition-colors hover:text-rose-600">
@@ -88,10 +88,10 @@ export default function RootLayout({
           </div>
         </header>
 
-        <main className="flex-grow w-full relative pt-24">{children}</main>
+        <main className="flex-grow w-full relative pt-24 bg-white">{children}</main>
 
         {/* Footer */}
-        <footer className="relative mt-32 border-t border-rose-200/60 bg-white/70 backdrop-blur-sm">
+        <footer className="relative mt-16 border-t border-gray-100 bg-white">
           <div className="wb-container py-16">
             <div className="grid gap-10 md:grid-cols-4">
               <div className="md:col-span-2">
@@ -109,8 +109,8 @@ export default function RootLayout({
                 <h4 className="text-xs font-semibold uppercase tracking-[0.18em] text-[#2A1A33]/50">Explore</h4>
                 <ul className="mt-4 space-y-2.5 text-sm text-[#2A1A33]/80">
                   <li><Link href="/venues" className="hover:text-rose-600 transition-colors">Venues</Link></li>
+                  <li><Link href="/budget" className="hover:text-rose-600 transition-colors">Budget Builder</Link></li>
                   <li><Link href="/vendors" className="hover:text-rose-600 transition-colors">Vendors</Link></li>
-                  <li><Link href="/features" className="hover:text-rose-600 transition-colors">Features</Link></li>
                 </ul>
               </div>
               <div>

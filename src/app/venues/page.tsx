@@ -1,95 +1,88 @@
+import Link from "next/link";
 import type { Metadata } from "next";
-import { supabase, type VenueRow } from "@/lib/supabase";
-import VenuesClient from "@/components/VenuesClient";
+import { KERALA_DISTRICTS } from "@/lib/kerala-venues";
 
 export const metadata: Metadata = {
-  title: "Venues · Wedding Buddy",
-  description:
-    "Discover Kerala's most breathtaking wedding venues — palaces, backwater resorts, beachfront estates, and heritage halls.",
+  title: "Venues by District · Wedding Buddy",
+  description: "Discover wedding venues across all 14 districts of Kerala — palaces, resorts, convention centres, and heritage halls.",
 };
 
-export const dynamic = "force-dynamic";
-
-export default async function VenuesPage() {
-  const { data, error } = await supabase
-    .from("venues")
-    .select("*")
-    .order("featured", { ascending: false })
-    .order("name")
-    .returns<VenueRow[]>();
-
-  const venues = data ?? [];
-
+export default function VenuesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ type?: string }>;
+}) {
   return (
     <div className="relative w-full">
       {/* ── HEADER ── */}
-      <section className="pt-12 pb-10 sm:pt-20">
+      <section className="pt-12 pb-10 sm:pt-20 border-b border-gray-100">
         <div className="wb-container">
           <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-rose-600 animate-wb-fade-up">Venues</p>
-            <h1 className="mt-4 font-display text-5xl font-medium leading-[1.08] tracking-tight text-[#2A1A33] sm:text-6xl md:text-7xl text-balance animate-wb-fade-up wb-delay-100">
-              Kerala&apos;s most
-              <span className="block wb-gradient-text italic animate-wb-shimmer pb-1">breathtaking venues.</span>
+            <div className="flex items-center gap-2 text-sm text-[#2A1A33]/50">
+              <Link href="/" className="hover:text-rose-600 transition-colors">Home</Link>
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+              <span className="text-[#2A1A33]">Venues</span>
+            </div>
+            <h1 className="mt-5 font-display text-4xl font-medium leading-[1.1] tracking-tight text-[#2A1A33] sm:text-5xl animate-wb-fade-up text-balance">
+              Which venue are you{" "}
+              <span className="wb-gradient-text italic animate-wb-shimmer">looking for?</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#2A1A33]/70 sm:text-lg animate-wb-fade-up wb-delay-200">
-              Hand-picked estates across palaces, backwater resorts, and beachfront cliffs. Every venue vetted, every rate transparent, every date verified with the property.
+            <p className="mt-4 text-base leading-relaxed text-[#2A1A33]/60 animate-wb-fade-up wb-delay-100">
+              Select a district to see all wedding venues — convention centres, hotels, resorts, and heritage halls.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ── FILTERS + GRID (client) ── */}
-      <section className="pb-24">
+      {/* ── DISTRICT GRID ── */}
+      <section className="py-14">
         <div className="wb-container">
-          {error && (
-            <div className="mb-8 rounded-2xl border border-amber-300 bg-amber-50 p-5 text-sm text-amber-900">
-              Could not load venues: {error.message}. Did you run the schema SQL in Supabase? See{" "}
-              <code className="rounded bg-white px-1">supabase/README.md</code>.
-            </div>
-          )}
-
-          {venues.length === 0 && !error ? (
-            <div className="rounded-3xl border border-rose-200 bg-white/80 p-10 text-center">
-              <p className="font-display text-2xl text-[#2A1A33]">No venues yet.</p>
-              <p className="mt-3 text-sm text-[#2A1A33]/70">
-                Paste <code className="rounded bg-rose-50 px-1">supabase/schema.sql</code> into the Supabase SQL Editor, then run{" "}
-                <code className="rounded bg-rose-50 px-1">npm run db:seed</code>.
-              </p>
-            </div>
-          ) : (
-            <VenuesClient venues={venues} />
-          )}
+          <p className="mb-7 text-xs font-semibold uppercase tracking-[0.2em] text-[#2A1A33]/40">
+            All 14 Districts of Kerala
+          </p>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {KERALA_DISTRICTS.map((d, i) => (
+              <Link
+                key={d.slug}
+                href={`/venues/${d.slug}`}
+                className="group flex items-start gap-3.5 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-rose-200 hover:shadow-[0_12px_32px_-12px_rgba(232,115,155,0.3)]"
+                style={{ animationDelay: `${i * 30}ms` }}
+              >
+                <div className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl bg-rose-50 text-2xl">
+                  {d.emoji}
+                </div>
+                <div className="min-w-0">
+                  <h2 className="font-bold text-[#2A1A33] group-hover:text-rose-600 transition-colors leading-tight">
+                    {d.name}
+                  </h2>
+                  <p className="mt-1 text-xs leading-relaxed text-[#2A1A33]/50 line-clamp-2">{d.tagline}</p>
+                </div>
+                <svg className="ml-auto flex-shrink-0 h-4 w-4 text-[#2A1A33]/25 group-hover:text-rose-400 transition-colors mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── CTA strip ── */}
-      <section className="pb-24">
-        <div className="wb-container max-w-5xl">
-          <div className="relative overflow-hidden rounded-[2rem] border border-rose-200 bg-gradient-to-br from-rose-50 via-white to-indigo-50 p-10 sm:p-14 shadow-[0_30px_80px_-30px_rgba(232,115,155,0.5)]">
-            <div className="pointer-events-none absolute -top-20 -right-20 h-56 w-56 rounded-full bg-indigo-200/70 blur-3xl animate-wb-float-slow" />
-            <div className="pointer-events-none absolute -bottom-20 -left-20 h-56 w-56 rounded-full bg-rose-200/70 blur-3xl animate-wb-drift" />
-            <div className="relative flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h3 className="font-display text-3xl font-medium tracking-tight text-[#2A1A33] sm:text-4xl text-balance leading-tight">
-                  Can&apos;t pick? Let the AI decide.
-                </h3>
-                <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#2A1A33]/70">
-                  Tell the concierge your date, budget, and guest count — get a shortlist of three venues with real availability in under thirty seconds.
-                </p>
-              </div>
-              <a
-                href="/#wb-chat"
-                className="group inline-flex flex-shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-500 px-6 py-3 text-sm font-bold text-white shadow-[0_14px_40px_-10px_rgba(232,115,155,0.7)] transition-all hover:-translate-y-0.5 hover:shadow-[0_22px_60px_-10px_rgba(232,115,155,0.75)]"
-              >
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                </svg>
-                Ask the concierge
-                <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </a>
+      {/* ── HELPER STRIP ── */}
+      <section className="pb-20">
+        <div className="wb-container max-w-4xl">
+          <div className="flex flex-col gap-4 rounded-2xl border border-indigo-100 bg-indigo-50 p-7 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="font-bold text-[#2A1A33]">Not sure which district?</p>
+              <p className="mt-1 text-sm text-[#2A1A33]/60">Use our AI concierge to get venue suggestions based on your guest count, style, and budget.</p>
             </div>
+            <Link
+              href="/#wb-chat"
+              className="flex-shrink-0 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-all hover:-translate-y-0.5"
+            >
+              Ask the AI
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>
