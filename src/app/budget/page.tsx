@@ -4,76 +4,67 @@ import BudgetClient from "@/components/BudgetClient";
 
 export const metadata: Metadata = {
   title: "Wedding Budget Builder · Wedding Buddy",
-  description: "Build your complete Kerala wedding budget. Edit every line item, track actuals vs estimates, and export to Excel.",
+  description: "Build your complete Kerala wedding budget. Edit every line item, track actuals, and export to Excel.",
 };
 
 export default function BudgetPage() {
   return (
-    <div className="relative w-full">
-      {/* ── HEADER ── */}
-      <section className="pt-12 pb-10 sm:pt-20 border-b border-gray-100">
-        <div className="wb-container">
-          <div className="flex items-center gap-2 text-sm text-[#2A1A33]/50">
-            <Link href="/" className="hover:text-rose-600 transition-colors">Home</Link>
-            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-            <span className="text-[#2A1A33]">Budget Builder</span>
-          </div>
+    <div className="w-full">
 
-          <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <h1 className="font-display text-4xl font-medium leading-[1.1] tracking-tight text-[#2A1A33] sm:text-5xl animate-wb-fade-up">
-                Build your{" "}
-                <span className="wb-gradient-text italic animate-wb-shimmer">wedding budget.</span>
+      {/* ── Page header ── */}
+      <section className="border-b border-[#E5E7EB] py-12 sm:py-16">
+        <div className="wb-container">
+          <nav className="flex items-center gap-1.5 text-sm text-[#9CA3AF] mb-6">
+            <Link href="/" className="hover:text-[#8B31C7] transition-colors">Home</Link>
+            <span>/</span>
+            <span className="text-[#111827]">Budget Builder</span>
+          </nav>
+
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex-1">
+              <h1 className="text-3xl font-bold tracking-tight text-[#111827] sm:text-4xl animate-wb-fade-up">
+                Wedding Budget Builder
               </h1>
-              <p className="mt-3 max-w-xl text-base leading-relaxed text-[#2A1A33]/60 animate-wb-fade-up wb-delay-100">
-                Every cost category for a Kerala wedding — from venue and Sadya to décor and photography. Edit any amount, track actuals, and export to Excel.
+              <p className="mt-3 text-sm text-[#6B7280] leading-relaxed max-w-xl animate-wb-fade-up wb-delay-100">
+                Pre-filled with Kerala wedding averages across 10 categories and 50+ line items.
+                Edit any amount, track actuals, and export to Excel to share with family.
               </p>
             </div>
-            <div className="flex flex-wrap gap-2 animate-wb-fade-up wb-delay-200">
-              <div className="flex items-center gap-2 rounded-xl border border-blue-100 bg-blue-50 px-3 py-2 text-xs font-semibold text-blue-700">
-                <span className="h-1.5 w-1.5 rounded-full bg-blue-500" /> Editable estimates
-              </div>
-              <div className="flex items-center gap-2 rounded-xl border border-emerald-100 bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-700">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" /> Excel export
-              </div>
-              <div className="flex items-center gap-2 rounded-xl border border-amber-100 bg-amber-50 px-3 py-2 text-xs font-semibold text-amber-700">
-                <span className="h-1.5 w-1.5 rounded-full bg-amber-500" /> 10 categories
-              </div>
+            <div className="flex flex-wrap gap-2 text-xs animate-wb-fade-up wb-delay-200">
+              {["10 categories", "50+ items", "Excel export"].map(tag => (
+                <span key={tag} className="rounded-md border border-[#E5E7EB] bg-[#F9FAFB] px-2.5 py-1 font-medium text-[#6B7280]">
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
+
+          {/* Steps */}
+          <ol className="mt-6 flex flex-wrap gap-x-8 gap-y-2 border-t border-[#E5E7EB] pt-5">
+            {[
+              "Review defaults — Kerala wedding averages",
+              "Click any amount to edit — totals update instantly",
+              "Switch to Actual to track real spending",
+              "Export to Excel and share with family",
+            ].map((s, i) => (
+              <li key={s} className="flex items-center gap-2 text-xs text-[#9CA3AF]">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#F5F0FF] text-[10px] font-bold text-[#8B31C7] flex-shrink-0">
+                  {i + 1}
+                </span>
+                {s}
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* ── HOW TO USE ── */}
-      <section className="py-8 border-b border-gray-100">
-        <div className="wb-container">
-          <div className="flex flex-wrap gap-6 text-sm text-[#2A1A33]/55">
-            <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2A1A33] text-[10px] font-bold text-white flex-shrink-0">1</div>
-              Review all line items — defaults are Kerala wedding averages
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2A1A33] text-[10px] font-bold text-white flex-shrink-0">2</div>
-              Click any amount to edit — totals update instantly
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2A1A33] text-[10px] font-bold text-white flex-shrink-0">3</div>
-              Switch to &ldquo;Actual&rdquo; tab to track real spending
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2A1A33] text-[10px] font-bold text-white flex-shrink-0">4</div>
-              Export to Excel and share with family
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── BUDGET TABLE ── */}
+      {/* ── Budget ── */}
       <section className="py-10 pb-20">
         <div className="wb-container max-w-4xl">
           <BudgetClient />
         </div>
       </section>
+
     </div>
   );
 }

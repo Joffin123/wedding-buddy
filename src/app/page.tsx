@@ -8,65 +8,49 @@ const SERVICE_TYPES = [
   {
     id: "designation-wedding",
     label: "Designation Wedding",
-    description: "Formal ceremonies — church, temple, or masjid — with full traditional rites",
-    icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="h-8 w-8" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20 4 L20 8 M14 7 L17 10 M26 7 L23 10" />
-        <circle cx="20" cy="13" r="4" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M10 36 C10 26 30 26 30 36" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M6 22 L34 22 M6 28 L34 28" />
-      </svg>
-    ),
-    color: "from-rose-50 to-white border-rose-200 hover:border-rose-400",
-    iconColor: "bg-rose-100 text-rose-600",
-    badge: "bg-rose-100 text-rose-700",
+    description: "Formal ceremonies — church, temple, or masjid — with full traditional rites.",
   },
   {
     id: "traditional-wedding",
     label: "Traditional Wedding",
-    description: "Authentic Kerala ceremonies with Sadya, classical rituals, and cultural grandeur",
-    icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="h-8 w-8" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20 6 C14 6 8 12 8 20 C8 28 14 34 20 34 C26 34 32 28 32 20 C32 12 26 6 20 6Z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20 10 L20 30 M12 16 L28 16 M12 24 L28 24" />
-        <circle cx="20" cy="20" r="3" fill="currentColor" opacity="0.4" />
-      </svg>
-    ),
-    color: "from-amber-50 to-white border-amber-200 hover:border-amber-400",
-    iconColor: "bg-amber-100 text-amber-600",
-    badge: "bg-amber-100 text-amber-700",
+    description: "Authentic Kerala ceremonies with Sadya, classical rituals, and cultural grandeur.",
   },
   {
     id: "wedding-reception",
     label: "Wedding Reception",
-    description: "Grand evening celebrations with banquets, DJ, décor, and guest entertainment",
-    icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="h-8 w-8" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M8 30 L8 18 L20 10 L32 18 L32 30 Z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M14 30 L14 22 L26 22 L26 30" />
-        <circle cx="20" cy="17" r="2.5" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M6 30 L34 30" />
-      </svg>
-    ),
-    color: "from-indigo-50 to-white border-indigo-200 hover:border-indigo-400",
-    iconColor: "bg-indigo-100 text-indigo-600",
-    badge: "bg-indigo-100 text-indigo-700",
+    description: "Grand evening celebrations with banquets, entertainment, and curated guest experiences.",
   },
   {
     id: "engagement",
     label: "Engagement",
-    description: "Intimate Nichayathartham or ring ceremony with family, flowers, and festivities",
-    icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="h-8 w-8" stroke="currentColor" strokeWidth={1.5}>
-        <circle cx="20" cy="20" r="12" />
-        <circle cx="20" cy="20" r="7" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20 8 L20 6 M32 20 L34 20 M20 32 L20 34 M8 20 L6 20" />
-        <circle cx="20" cy="20" r="2.5" fill="currentColor" />
-      </svg>
-    ),
-    color: "from-fuchsia-50 to-white border-fuchsia-200 hover:border-fuchsia-400",
-    iconColor: "bg-fuchsia-100 text-fuchsia-600",
-    badge: "bg-fuchsia-100 text-fuchsia-700",
+    description: "Intimate Nichayathartham or ring ceremony with family, flowers, and festivities.",
+  },
+];
+
+const FEATURES = [
+  {
+    label: "Venues across Kerala",
+    description: "All 14 districts covered. Select a district, browse halls, and see per-person or flat-rate pricing.",
+    href: "/venues",
+    tag: "14 districts",
+  },
+  {
+    label: "Budget builder",
+    description: "50+ line items pre-filled with Kerala wedding averages. Edit, track actuals, and export to Excel.",
+    href: "/budget",
+    tag: "Excel export",
+  },
+  {
+    label: "Vendor directory",
+    description: "Photographers, caterers, decorators, and makeup artists — vetted and categorised.",
+    href: "/vendors",
+    tag: "4 categories",
+  },
+  {
+    label: "AI concierge",
+    description: "Ask anything about Kerala weddings — muhurtham timings, Sadya menus, venue comparisons.",
+    href: "/",
+    tag: "AI-powered",
   },
 ];
 
@@ -76,133 +60,110 @@ export default function Home() {
 
   function handleSelect(id: string) {
     setSelected(id);
-    setTimeout(() => {
-      router.push(`/venues?type=${id}`);
-    }, 180);
+    setTimeout(() => router.push(`/venues?type=${id}`), 160);
   }
 
   return (
-    <div className="relative w-full">
-      {/* ── WELCOME HERO ── */}
-      <section className="relative pt-10 pb-16 sm:pt-16">
+    <div className="w-full">
+
+      {/* ── Hero ── */}
+      <section className="border-b border-[#E5E7EB] py-16 sm:py-24">
         <div className="wb-container">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-rose-50 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.22em] text-rose-600 animate-wb-fade-up">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-400 opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-rose-500" />
-              </span>
-              Kerala&apos;s Wedding Planning Platform
-            </div>
 
-            <h1 className="mt-6 font-display text-4xl font-medium leading-[1.1] tracking-tight text-[#2A1A33] sm:text-5xl md:text-6xl animate-wb-fade-up wb-delay-100 text-balance">
-              What service are you{" "}
-              <span className="wb-gradient-text italic animate-wb-shimmer">looking for?</span>
-            </h1>
+          {/* Label */}
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-[#9CA3AF] mb-5 animate-wb-fade-up">Kerala Wedding Planning</p>
 
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-[#2A1A33]/60 sm:text-base animate-wb-fade-up wb-delay-200">
-              Choose your wedding type to discover venues, vendors, and build your perfect budget — all curated for Kerala.
-            </p>
-          </div>
+          {/* Headline */}
+          <h1 className="text-4xl font-bold tracking-tight text-[#111827] sm:text-5xl leading-[1.1] animate-wb-fade-up wb-delay-100">
+            What service are you<br />
+            <span className="text-[#8B31C7]">looking for?</span>
+          </h1>
 
-          {/* Service type cards */}
-          <div className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2 animate-wb-fade-up wb-delay-300">
-            {SERVICE_TYPES.map((s) => (
+          <p className="mt-4 text-[#6B7280] text-base leading-relaxed max-w-md animate-wb-fade-up wb-delay-200">
+            Choose your wedding type to discover venues, compare pricing, and build your complete budget.
+          </p>
+
+          {/* Service cards */}
+          <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-2xl animate-wb-fade-up wb-delay-300">
+            {SERVICE_TYPES.map((s, i) => (
               <button
                 key={s.id}
                 onClick={() => handleSelect(s.id)}
-                className={`group relative flex items-start gap-4 rounded-2xl border bg-gradient-to-br p-6 text-left transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_48px_-16px_rgba(232,115,155,0.35)] cursor-pointer ${s.color} ${selected === s.id ? "scale-[0.98] opacity-80" : ""}`}
+                className={`group text-left rounded-xl border bg-white p-5 transition-all duration-150 cursor-pointer
+                  ${selected === s.id
+                    ? "border-[#8B31C7] shadow-sm"
+                    : "border-[#E5E7EB] hover:border-[#8B31C7] hover:shadow-sm"
+                  }`}
               >
-                <div className={`flex-shrink-0 flex h-14 w-14 items-center justify-center rounded-xl ${s.iconColor} transition-transform duration-300 group-hover:scale-110`}>
-                  {s.icon}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-base font-bold text-[#2A1A33]">{s.label}</h3>
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className={`flex h-5 w-5 items-center justify-center rounded-full border text-[10px] font-bold flex-shrink-0 ${
+                        selected === s.id ? "border-[#8B31C7] text-[#8B31C7] bg-[#F5F0FF]" : "border-[#E5E7EB] text-[#9CA3AF]"
+                      }`}>
+                        {i + 1}
+                      </span>
+                      <p className="font-semibold text-sm text-[#111827]">{s.label}</p>
+                    </div>
+                    <p className="text-sm text-[#6B7280] leading-relaxed pl-7">{s.description}</p>
                   </div>
-                  <p className="mt-1.5 text-sm leading-relaxed text-[#2A1A33]/60">{s.description}</p>
+                  <svg
+                    className={`h-4 w-4 flex-shrink-0 mt-0.5 transition-colors ${
+                      selected === s.id ? "text-[#8B31C7]" : "text-[#D1D5DB] group-hover:text-[#8B31C7]"
+                    }`}
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
                 </div>
-                <svg className="h-5 w-5 flex-shrink-0 text-[#2A1A33]/30 transition-all duration-300 group-hover:text-rose-500 group-hover:translate-x-0.5 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
               </button>
             ))}
           </div>
 
-          {/* Quick nav pills */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 animate-wb-fade-up wb-delay-400">
-            <span className="text-xs text-[#2A1A33]/40 font-medium">Or explore directly</span>
-            <Link href="/venues" className="rounded-full border border-rose-200 bg-white px-4 py-1.5 text-sm font-semibold text-rose-600 hover:bg-rose-50 transition-colors">
-              Browse Venues
-            </Link>
-            <Link href="/budget" className="rounded-full border border-indigo-200 bg-white px-4 py-1.5 text-sm font-semibold text-indigo-600 hover:bg-indigo-50 transition-colors">
-              Budget Builder
-            </Link>
-            <Link href="/vendors" className="rounded-full border border-amber-200 bg-white px-4 py-1.5 text-sm font-semibold text-amber-600 hover:bg-amber-50 transition-colors">
-              Find Vendors
-            </Link>
+          {/* Quick links */}
+          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 animate-wb-fade-up" style={{ animationDelay: "0.28s" }}>
+            <span className="text-xs text-[#9CA3AF]">Or jump to</span>
+            {[
+              { href: "/venues",  label: "Browse venues"   },
+              { href: "/budget",  label: "Budget builder"  },
+              { href: "/vendors", label: "Find vendors"    },
+            ].map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="text-sm font-medium text-[#6B7280] underline underline-offset-4 decoration-[#E5E7EB] hover:text-[#8B31C7] hover:decoration-[#8B31C7] transition-all"
+              >
+                {l.label}
+              </Link>
+            ))}
           </div>
+
         </div>
       </section>
 
-      {/* ── WHY WEDDING BUDDY ── */}
-      <section className="relative py-20 border-t border-gray-100">
+      {/* ── Features ── */}
+      <section className="py-16 border-b border-[#E5E7EB]">
         <div className="wb-container">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-rose-600">Why Wedding Buddy</p>
-            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-[#2A1A33] sm:text-4xl text-balance">
-              Your complete Kerala wedding companion.
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                title: "Venues across Kerala",
-                body: "All 14 districts covered — from Kovalam beaches to Munnar estates. Browse by district, see halls with real pricing.",
-                icon: "🏛️",
-                href: "/venues",
-              },
-              {
-                title: "Smart budget builder",
-                body: "Get a full wedding scope estimate. Edit every line item and export a clean Excel sheet ready to share.",
-                icon: "📊",
-                href: "/budget",
-              },
-              {
-                title: "Curated vendors",
-                body: "Photographers, caterers, decorators, and makeup artists — vetted by Kerala wedding experts.",
-                icon: "✨",
-                href: "/vendors",
-              },
-              {
-                title: "AI concierge",
-                body: "Ask anything — from muhurtham timings to Sadya menus. Our AI knows Kerala weddings inside out.",
-                icon: "🤖",
-                href: "/#wb-chat",
-              },
-              {
-                title: "Guest list manager",
-                body: "Import from contacts, track RSVPs, and manage dietary preferences for every guest.",
-                icon: "👥",
-                href: "/features",
-              },
-              {
-                title: "Private & secure",
-                body: "Your plans, your budget, your guest list — encrypted and never shared or sold.",
-                icon: "🔒",
-                href: "/features",
-              },
-            ].map((f) => (
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-[#9CA3AF] mb-8">What you can do</p>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {FEATURES.map((f) => (
               <Link
-                key={f.title}
+                key={f.label}
                 href={f.href}
-                className="group flex gap-4 rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-rose-200 hover:shadow-[0_12px_32px_-12px_rgba(232,115,155,0.3)]"
+                className="group rounded-xl border border-[#E5E7EB] bg-white p-6 flex flex-col gap-4 hover:border-[#8B31C7] hover:shadow-sm transition-all duration-150"
               >
-                <div className="flex-shrink-0 text-2xl">{f.icon}</div>
-                <div>
-                  <h3 className="font-bold text-[#2A1A33] group-hover:text-rose-600 transition-colors">{f.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-[#2A1A33]/60">{f.body}</p>
+                <div className="flex items-start justify-between gap-3">
+                  <p className="font-semibold text-[#111827] text-sm leading-tight">{f.label}</p>
+                  <span className="flex-shrink-0 rounded-md border border-[#FDE68A] bg-[#FFFBEB] px-2 py-0.5 text-[11px] font-semibold text-[#92400E]">
+                    {f.tag}
+                  </span>
+                </div>
+                <p className="text-sm text-[#6B7280] leading-relaxed flex-1">{f.description}</p>
+                <div className="flex items-center gap-1 text-xs font-semibold text-[#8B31C7] group-hover:gap-2 transition-all">
+                  Learn more
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
                 </div>
               </Link>
             ))}
@@ -210,60 +171,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ── */}
-      <section className="relative py-20 border-t border-gray-100">
-        <div className="wb-container max-w-4xl">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-indigo-600">How it works</p>
-            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-[#2A1A33] sm:text-4xl text-balance">
-              From &ldquo;yes&rdquo; to &ldquo;I do&rdquo; — in three steps.
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+      {/* ── How it works ── */}
+      <section className="py-16 border-b border-[#E5E7EB]">
+        <div className="wb-container">
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-[#9CA3AF] mb-8">How it works</p>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 max-w-3xl">
             {[
-              { step: "01", title: "Choose your style", body: "Select your wedding type — traditional, designation, reception, or engagement — and we&apos;ll tailor every suggestion." },
-              { step: "02", title: "Discover & compare", body: "Browse venues by district, compare halls and pricing, build your budget, and shortlist vendors all in one place." },
-              { step: "03", title: "Plan with confidence", body: "Export your budget to Excel, share with family, and book your dream vendors — we handle the coordination." },
-            ].map((s, i) => (
-              <div
-                key={s.step}
-                className="relative rounded-2xl border border-gray-100 bg-white p-7 shadow-sm"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="font-display text-5xl font-medium text-transparent [-webkit-text-stroke:1px_rgba(232,115,155,0.4)]">
-                    {s.step}
-                  </span>
-                  {i < 2 && <div className="hidden md:block h-px flex-1 bg-gradient-to-r from-rose-200 to-transparent" />}
-                </div>
-                <h3 className="mt-5 text-lg font-bold text-[#2A1A33]">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#2A1A33]/60" dangerouslySetInnerHTML={{ __html: s.body }} />
+              { n: "1", title: "Pick your type", body: "Select Designation, Traditional, Reception, or Engagement — every suggestion is tailored to your choice." },
+              { n: "2", title: "Explore venues",  body: "Browse 14 Kerala districts. Click a venue to see each hall with real pricing — per person or flat rate." },
+              { n: "3", title: "Build a budget",  body: "Edit 50+ pre-filled items, track actuals, then export a clean Excel sheet to share with family." },
+            ].map((s) => (
+              <div key={s.n} className="rounded-xl border border-[#E5E7EB] bg-white p-6">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#F5F0FF] text-sm font-bold text-[#8B31C7] mb-4">
+                  {s.n}
+                </span>
+                <p className="font-semibold text-[#111827] text-sm mb-2">{s.title}</p>
+                <p className="text-sm text-[#6B7280] leading-relaxed">{s.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── TESTIMONIAL ── */}
-      <section className="relative py-20 border-t border-gray-100">
-        <div className="wb-container max-w-3xl">
-          <div className="relative overflow-hidden rounded-2xl border border-rose-100 bg-rose-50 p-10 sm:p-14">
-            <div className="pointer-events-none absolute -top-10 -left-10 h-40 w-40 rounded-full bg-rose-200/40 blur-3xl" />
-            <div className="relative">
-              <svg className="h-7 w-7 text-rose-400" viewBox="0 0 32 32" fill="currentColor" aria-hidden>
-                <path d="M10 8c-3 0-6 2-6 6v10h10V14H8c0-2 1-4 2-4V8zm14 0c-3 0-6 2-6 6v10h10V14h-6c0-2 1-4 2-4V8z" />
+      {/* ── Testimonial ── */}
+      <section className="py-16 border-b border-[#E5E7EB]">
+        <div className="wb-container max-w-2xl">
+          <div className="rounded-xl border border-[#E5E7EB] bg-white p-8">
+            <div className="flex items-start gap-3 mb-5">
+              <svg className="h-6 w-6 text-[#F59E0B] flex-shrink-0 mt-0.5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M11.3 5.2C8.5 5.2 6 7 6 10.3v8.5h8.5v-8H9.2c0-2 1-3.5 2.1-3.5V5.2zm8.2 0c-2.8 0-5.3 1.8-5.3 5.1v8.5H22.7v-8h-5.3c0-2 1-3.5 2.1-3.5V5.2z" />
               </svg>
-              <p className="mt-5 font-display text-xl font-normal leading-relaxed text-[#2A1A33] sm:text-2xl">
-                &ldquo;Wedding Buddy planned our Kumarakom ceremony in nine days flat. The concierge found us a houseboat, a Sadya caterer, and a photographer — all within budget. It felt less like planning and more like having a very clever friend.&rdquo;
-              </p>
-              <div className="mt-7 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-rose-500 to-indigo-500 text-sm font-bold text-white">
-                  AR
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-[#2A1A33]">Aishwarya &amp; Rohan</p>
-                  <p className="text-xs text-[#2A1A33]/50">Married in Kumarakom, December 2025</p>
-                </div>
+            </div>
+            <p className="text-[#111827] text-base leading-relaxed font-medium">
+              Wedding Buddy planned our Kumarakom ceremony in nine days. Found us a houseboat, a Sadya caterer, and a photographer who understood our families — all within budget.
+            </p>
+            <div className="mt-6 flex items-center gap-3 pt-5 border-t border-[#E5E7EB]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#8B31C7] text-xs font-bold text-white flex-shrink-0">
+                AR
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-[#111827]">Aishwarya &amp; Rohan</p>
+                <p className="text-xs text-[#9CA3AF]">Kumarakom, December 2025</p>
               </div>
             </div>
           </div>
@@ -271,33 +219,29 @@ export default function Home() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="relative py-20 border-t border-gray-100">
-        <div className="wb-container max-w-3xl text-center">
-          <h2 className="font-display text-3xl font-medium tracking-tight text-[#2A1A33] sm:text-4xl">
-            Ready to start planning?
-          </h2>
-          <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-[#2A1A33]/60">
-            No account needed. Pick your wedding type above and discover venues across all 14 districts of Kerala.
+      <section className="py-16">
+        <div className="wb-container max-w-2xl">
+          <h2 className="text-2xl font-bold text-[#111827]">Ready to start planning?</h2>
+          <p className="mt-2 text-sm text-[#6B7280] leading-relaxed">
+            No account needed. Pick a wedding type above or jump straight into venues and budgeting.
           </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div className="mt-6 flex flex-wrap gap-3">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-500 px-7 py-3.5 text-sm font-bold text-white shadow-[0_14px_40px_-10px_rgba(232,115,155,0.6)] transition-all duration-300 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-lg bg-[#8B31C7] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#7a28b0] transition-colors"
             >
-              Get started
-              <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              Choose wedding type
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
               </svg>
             </button>
-            <Link
-              href="/budget"
-              className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-7 py-3.5 text-sm font-bold text-[#2A1A33] transition-all duration-300 hover:border-rose-300"
-            >
-              Build your budget
+            <Link href="/budget" className="inline-flex items-center gap-2 rounded-lg border border-[#E5E7EB] bg-white px-5 py-2.5 text-sm font-semibold text-[#111827] hover:bg-[#F9FAFB] transition-colors">
+              Open budget builder
             </Link>
           </div>
         </div>
       </section>
+
     </div>
   );
 }

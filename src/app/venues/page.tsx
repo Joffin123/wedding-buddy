@@ -4,60 +4,49 @@ import { KERALA_DISTRICTS } from "@/lib/kerala-venues";
 
 export const metadata: Metadata = {
   title: "Venues by District · Wedding Buddy",
-  description: "Discover wedding venues across all 14 districts of Kerala — palaces, resorts, convention centres, and heritage halls.",
+  description: "Discover wedding venues across all 14 districts of Kerala.",
 };
 
-export default function VenuesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ type?: string }>;
-}) {
+export default function VenuesPage() {
   return (
-    <div className="relative w-full">
-      {/* ── HEADER ── */}
-      <section className="pt-12 pb-10 sm:pt-20 border-b border-gray-100">
+    <div className="w-full">
+
+      {/* ── Page header ── */}
+      <section className="border-b border-[#E5E7EB] py-12 sm:py-16">
         <div className="wb-container">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-2 text-sm text-[#2A1A33]/50">
-              <Link href="/" className="hover:text-rose-600 transition-colors">Home</Link>
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-              <span className="text-[#2A1A33]">Venues</span>
-            </div>
-            <h1 className="mt-5 font-display text-4xl font-medium leading-[1.1] tracking-tight text-[#2A1A33] sm:text-5xl animate-wb-fade-up text-balance">
-              Which venue are you{" "}
-              <span className="wb-gradient-text italic animate-wb-shimmer">looking for?</span>
-            </h1>
-            <p className="mt-4 text-base leading-relaxed text-[#2A1A33]/60 animate-wb-fade-up wb-delay-100">
-              Select a district to see all wedding venues — convention centres, hotels, resorts, and heritage halls.
-            </p>
-          </div>
+          <nav className="flex items-center gap-1.5 text-sm text-[#9CA3AF] mb-6">
+            <Link href="/" className="hover:text-[#8B31C7] transition-colors">Home</Link>
+            <span>/</span>
+            <span className="text-[#111827]">Venues</span>
+          </nav>
+          <h1 className="text-3xl font-bold tracking-tight text-[#111827] sm:text-4xl animate-wb-fade-up">
+            Which venue are you looking for?
+          </h1>
+          <p className="mt-3 text-sm text-[#6B7280] leading-relaxed max-w-md animate-wb-fade-up wb-delay-100">
+            Select a district below to see all venues in that area. Pricing is shown only after you choose a property.
+          </p>
         </div>
       </section>
 
-      {/* ── DISTRICT GRID ── */}
-      <section className="py-14">
+      {/* ── District grid ── */}
+      <section className="py-12">
         <div className="wb-container">
-          <p className="mb-7 text-xs font-semibold uppercase tracking-[0.2em] text-[#2A1A33]/40">
-            All 14 Districts of Kerala
-          </p>
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {KERALA_DISTRICTS.map((d, i) => (
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-[#9CA3AF] mb-6">All 14 districts · Kerala</p>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {KERALA_DISTRICTS.map((d) => (
               <Link
                 key={d.slug}
                 href={`/venues/${d.slug}`}
-                className="group flex items-start gap-3.5 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-rose-200 hover:shadow-[0_12px_32px_-12px_rgba(232,115,155,0.3)]"
-                style={{ animationDelay: `${i * 30}ms` }}
+                className="group flex items-center gap-3.5 rounded-xl border border-[#E5E7EB] bg-white px-4 py-3.5 transition-all duration-150 hover:border-[#8B31C7] hover:shadow-sm"
               >
-                <div className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl bg-rose-50 text-2xl">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#F9FAFB] text-xl flex-shrink-0 group-hover:bg-[#F5F0FF] transition-colors">
                   {d.emoji}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-sm text-[#111827] group-hover:text-[#8B31C7] transition-colors">{d.name}</p>
+                  <p className="text-xs text-[#9CA3AF] mt-0.5 truncate">{d.tagline}</p>
                 </div>
-                <div className="min-w-0">
-                  <h2 className="font-bold text-[#2A1A33] group-hover:text-rose-600 transition-colors leading-tight">
-                    {d.name}
-                  </h2>
-                  <p className="mt-1 text-xs leading-relaxed text-[#2A1A33]/50 line-clamp-2">{d.tagline}</p>
-                </div>
-                <svg className="ml-auto flex-shrink-0 h-4 w-4 text-[#2A1A33]/25 group-hover:text-rose-400 transition-colors mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="h-4 w-4 flex-shrink-0 text-[#D1D5DB] group-hover:text-[#8B31C7] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </Link>
@@ -66,18 +55,15 @@ export default function VenuesPage({
         </div>
       </section>
 
-      {/* ── HELPER STRIP ── */}
-      <section className="pb-20">
-        <div className="wb-container max-w-4xl">
-          <div className="flex flex-col gap-4 rounded-2xl border border-indigo-100 bg-indigo-50 p-7 sm:flex-row sm:items-center sm:justify-between">
+      {/* ── AI prompt strip ── */}
+      <section className="pb-16">
+        <div className="wb-container">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-xl border border-[#FDE68A] bg-[#FFFBEB] px-6 py-5">
             <div>
-              <p className="font-bold text-[#2A1A33]">Not sure which district?</p>
-              <p className="mt-1 text-sm text-[#2A1A33]/60">Use our AI concierge to get venue suggestions based on your guest count, style, and budget.</p>
+              <p className="font-semibold text-sm text-[#111827]">Not sure which district?</p>
+              <p className="text-sm text-[#6B7280] mt-0.5">Use the AI to get suggestions based on your guest count, style, and budget.</p>
             </div>
-            <Link
-              href="/#wb-chat"
-              className="flex-shrink-0 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-500 to-fuchsia-500 px-5 py-2.5 text-sm font-bold text-white shadow-sm transition-all hover:-translate-y-0.5"
-            >
+            <Link href="/" className="flex-shrink-0 inline-flex items-center gap-2 rounded-lg bg-[#8B31C7] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#7a28b0] transition-colors">
               Ask the AI
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -86,6 +72,7 @@ export default function VenuesPage({
           </div>
         </div>
       </section>
+
     </div>
   );
 }
