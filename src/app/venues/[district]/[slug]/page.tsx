@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getDistrictBySlug, getVenueBySlug, type Hall } from "@/lib/kerala-venues";
+import { getDistrictBySlug, getVenueBySlug } from "@/lib/kerala-venues";
+import HallPricingClient from "@/components/HallPricingClient";
 
 export async function generateMetadata({
   params,
@@ -14,33 +15,6 @@ export async function generateMetadata({
   return { title: `${venue.name} · Wedding Buddy`, description: venue.description };
 }
 
-function HallRow({ hall }: { hall: Hall }) {
-  const isPerPax = hall.priceType === "per_pax";
-  return (
-    <div className="flex items-center justify-between gap-4 py-4 border-b border-[#E5E7EB] last:border-0">
-      <div className="min-w-0">
-        <p className="font-semibold text-sm text-[#111827]">{hall.name}</p>
-        <p className="text-xs text-[#9CA3AF] mt-0.5">
-          Up to {hall.capacity.toLocaleString()} guests
-          {hall.minPax ? ` · min. ${hall.minPax} pax` : ""}
-        </p>
-      </div>
-      <div className="flex-shrink-0 flex flex-col items-end gap-0.5">
-        <p className="font-bold text-[#111827]">₹{hall.price.toLocaleString()}</p>
-        <span className={`rounded px-2 py-0.5 text-[11px] font-semibold ${
-          isPerPax
-            ? "bg-[#F5F0FF] text-[#8B31C7]"
-            : "bg-[#FFFBEB] text-[#92400E]"
-        }`}>
-          {isPerPax ? "per person" : "flat rate"}
-        </span>
-        {isPerPax && hall.minPax && (
-          <p className="text-[11px] text-[#9CA3AF]">min. ₹{(hall.price * hall.minPax).toLocaleString()}</p>
-        )}
-      </div>
-    </div>
-  );
-}
 
 export default async function VenueDetailPage({
   params,
@@ -61,7 +35,7 @@ export default async function VenueDetailPage({
     <div className="w-full">
 
       {/* ── Page header ── */}
-      <section className="border-b border-[#E5E7EB] py-12 sm:py-16">
+      <section className="border-b border-purple-100 bg-gradient-to-b from-[#FFFAF0] to-white py-12 sm:py-16">
         <div className="wb-container">
           <nav className="flex flex-wrap items-center gap-1.5 text-sm text-[#9CA3AF] mb-6">
             <Link href="/" className="hover:text-[#8B31C7] transition-colors">Home</Link>
@@ -76,16 +50,16 @@ export default async function VenueDetailPage({
           <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex-1">
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className="rounded border border-[#E5E7EB] bg-[#F9FAFB] px-2.5 py-0.5 text-xs font-medium text-[#6B7280]">
+                <span className="rounded border border-purple-200 bg-[#F5F0FF] px-2.5 py-0.5 text-xs font-semibold text-[#8B31C7]">
                   {venue.type}
                 </span>
                 <span className="text-xs text-[#9CA3AF]">{districtData.emoji} {districtData.name}</span>
               </div>
-              <h1 className="text-3xl font-bold tracking-tight text-[#111827] sm:text-4xl animate-wb-fade-up">
+              <h1 className="font-display text-4xl font-extrabold tracking-tight text-[#111827] sm:text-5xl animate-wb-fade-up">
                 {venue.name}
               </h1>
-              <p className="mt-2 text-sm text-[#6B7280] flex items-center gap-1.5 animate-wb-fade-up wb-delay-100">
-                <svg className="h-3.5 w-3.5 flex-shrink-0 text-[#9CA3AF]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <p className="mt-2 text-base text-[#6B7280] flex items-center gap-1.5 animate-wb-fade-up wb-delay-100">
+                <svg className="h-3.5 w-3.5 flex-shrink-0 text-[#8B31C7]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
@@ -100,9 +74,9 @@ export default async function VenueDetailPage({
                 { label: "max guests", value: maxCapacity.toLocaleString() },
                 { label: "halls", value: String(venue.halls.length) },
               ].map((s) => (
-                <div key={s.label} className="rounded-lg border border-[#E5E7EB] bg-white px-4 py-2.5 text-center min-w-[100px]">
-                  <p className="text-base font-bold text-[#111827]">{s.value}</p>
-                  <p className="text-[11px] text-[#9CA3AF] mt-0.5">{s.label}</p>
+                <div key={s.label} className="rounded-xl border border-purple-100 bg-white px-4 py-2.5 text-center min-w-[110px] shadow-sm">
+                  <p className="font-sans text-lg font-black text-[#111827]">{s.value}</p>
+                  <p className="text-[10px] uppercase font-semibold tracking-wider text-[#9CA3AF] mt-0.5">{s.label}</p>
                 </div>
               ))}
             </div>
@@ -118,20 +92,18 @@ export default async function VenueDetailPage({
             {/* Left column */}
             <div className="space-y-4 lg:col-span-1">
               {/* About */}
-              <div className="rounded-xl border border-[#E5E7EB] bg-white p-5">
-                <p className="text-xs font-semibold uppercase tracking-wider text-[#9CA3AF] mb-3">About</p>
-                <p className="text-sm text-[#6B7280] leading-relaxed">{venue.description}</p>
+              <div className="rounded-xl border border-purple-100 bg-[#FEF9F3] p-5 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#8B31C7] mb-3">About</p>
+                <p className="text-base text-[#6B7280] leading-relaxed">{venue.description}</p>
               </div>
 
               {/* Highlights */}
-              <div className="rounded-xl border border-[#E5E7EB] bg-white p-5">
-                <p className="text-xs font-semibold uppercase tracking-wider text-[#9CA3AF] mb-3">Highlights</p>
-                <ul className="space-y-2">
+              <div className="rounded-xl border border-purple-100 bg-white p-5 shadow-sm">
+                <p className="text-xs font-semibold uppercase tracking-wider text-[#8B31C7] mb-3">Highlights</p>
+                <ul className="space-y-2.5">
                   {venue.highlights.map((h) => (
-                    <li key={h} className="flex items-center gap-2.5 text-sm text-[#374151]">
-                      <svg className="h-3.5 w-3.5 flex-shrink-0 text-[#8B31C7]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
+                    <li key={h} className="flex items-center gap-2.5 text-base text-[#374151]">
+                      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#F5F0FF] text-[10px] text-[#8B31C7] flex-shrink-0 font-bold">✓</span>
                       {h}
                     </li>
                   ))}
@@ -139,12 +111,12 @@ export default async function VenueDetailPage({
               </div>
 
               {/* Enquiry */}
-              <div className="rounded-xl border border-[#8B31C7]/20 bg-[#F5F0FF] p-5">
-                <p className="font-semibold text-sm text-[#111827] mb-1">Enquire about this venue</p>
+              <div className="rounded-xl border border-purple-200 bg-gradient-to-tr from-[#F5F0FF] to-pink-50/50 p-5 shadow-sm">
+                <p className="font-display font-bold text-sm text-[#111827] mb-1">Enquire about this venue</p>
                 <p className="text-xs text-[#6B7280] leading-relaxed mb-4">
                   Check availability, request a site visit, or get a full quote from the property.
                 </p>
-                <Link href="/contact" className="flex w-full items-center justify-center rounded-lg bg-[#8B31C7] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#7a28b0] transition-colors">
+                <Link href="/contact" className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 px-4 py-2.5 text-sm font-semibold text-white hover:shadow-md transition-all cursor-pointer">
                   Send an enquiry
                 </Link>
               </div>
@@ -154,19 +126,12 @@ export default async function VenueDetailPage({
             <div className="lg:col-span-2 space-y-4">
 
               {/* Halls & Pricing */}
-              <div className="rounded-xl border border-[#E5E7EB] bg-white overflow-hidden">
-                <div className="flex items-center justify-between px-5 py-4 border-b border-[#E5E7EB] bg-[#F9FAFB]">
-                  <p className="font-semibold text-sm text-[#111827]">Halls &amp; Pricing</p>
-                  <span className={`rounded px-2.5 py-0.5 text-[11px] font-semibold ${
-                    isHotel ? "bg-[#F5F0FF] text-[#8B31C7]" : "bg-[#FFFBEB] text-[#92400E]"
-                  }`}>
-                    {isHotel ? "Per person · hotel" : isConvention ? "Flat rate · convention" : "Flat rate per event"}
-                  </span>
-                </div>
-                <div className="px-5">
-                  {venue.halls.map(hall => <HallRow key={hall.name} hall={hall} />)}
-                </div>
-              </div>
+              <HallPricingClient
+                halls={venue.halls}
+                isHotel={isHotel}
+                isConvention={isConvention}
+                venueType={venue.type}
+              />
 
               {/* Pricing note */}
               <div className="rounded-xl border border-[#FDE68A] bg-[#FFFBEB] p-5">

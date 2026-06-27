@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -102,7 +103,7 @@ export default function FeaturesPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#2A1A33]/50">Total budget</p>
-                      <p className="mt-1 font-display text-4xl font-medium text-[#2A1A33]">₹32,00,000</p>
+                      <p className="mt-1 font-sans text-4xl font-medium text-[#2A1A33]">₹32,00,000</p>
                     </div>
                     <div className="rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-700">
                       On track · 82%
@@ -135,7 +136,7 @@ export default function FeaturesPage() {
                         </div>
                         <div className="flex items-center gap-3">
                           <span className="text-xs text-[#2A1A33]/50 tabular-nums">{l.pct}%</span>
-                          <span className="font-display text-sm font-medium text-[#2A1A33] tabular-nums">{l.amt}</span>
+                          <span className="font-sans text-sm font-medium text-[#2A1A33] tabular-nums">{l.amt}</span>
                         </div>
                       </div>
                     ))}
@@ -156,6 +157,27 @@ export default function FeaturesPage() {
         </div>
       </section>
 
+      {/* ── Image Break: Traditional Wedding ── */}
+      <section className="py-8 bg-white relative overflow-hidden">
+        <div className="wb-container">
+          <div className="relative h-[300px] w-full rounded-[2rem] overflow-hidden shadow-md group">
+            <Image
+              src="/images/traditional_kerala_marriage.png"
+              alt="Traditional Kerala Wedding Ceremony"
+              fill
+              sizes="100vw"
+              className="object-cover transition-transform duration-[1.2s] group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent flex flex-col justify-end p-8 sm:p-12">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-300 mb-2">Heritage · Sadya &amp; Mandap</span>
+              <h4 className="font-display text-2xl sm:text-4xl font-extrabold text-white leading-tight max-w-xl">
+                Authentic Kerala traditions — every detail planned.
+              </h4>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* GUESTS */}
       <section id="guests" className="py-24">
         <div className="wb-container">
@@ -167,21 +189,21 @@ export default function FeaturesPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#2A1A33]/50">Guest list</p>
-                      <p className="mt-1 font-display text-4xl font-medium text-[#2A1A33]">
+                      <p className="mt-1 font-sans text-4xl font-medium text-[#2A1A33]">
                         318<span className="text-[#2A1A33]/40">/450</span>
                       </p>
                     </div>
                     <div className="flex gap-2">
                       <div className="rounded-lg border border-emerald-300 bg-emerald-50 px-2.5 py-1 text-center">
-                        <p className="font-display text-lg font-medium text-emerald-700">252</p>
+                        <p className="font-sans text-lg font-medium text-emerald-700">252</p>
                         <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-emerald-600">Yes</p>
                       </div>
                       <div className="rounded-lg border border-rose-300 bg-rose-50 px-2.5 py-1 text-center">
-                        <p className="font-display text-lg font-medium text-rose-700">34</p>
+                        <p className="font-sans text-lg font-medium text-rose-700">34</p>
                         <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-rose-600">No</p>
                       </div>
                       <div className="rounded-lg border border-amber-300 bg-amber-50 px-2.5 py-1 text-center">
-                        <p className="font-display text-lg font-medium text-amber-700">32</p>
+                        <p className="font-sans text-lg font-medium text-amber-700">32</p>
                         <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-amber-600">Pending</p>
                       </div>
                     </div>
@@ -354,6 +376,27 @@ export default function FeaturesPage() {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Image Break: Beachfront Reception ── */}
+      <section className="py-8 bg-white relative overflow-hidden">
+        <div className="wb-container">
+          <div className="relative h-[300px] w-full rounded-[2rem] overflow-hidden shadow-md group">
+            <Image
+              src="/images/kerala_beach_reception.png"
+              alt="Kerala Beachfront Wedding Reception"
+              fill
+              sizes="100vw"
+              className="object-cover transition-transform duration-[1.2s] group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent flex flex-col justify-end p-8 sm:p-12">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-sky-300 mb-2">Destinations · Beachfront Venues</span>
+              <h4 className="font-display text-2xl sm:text-4xl font-extrabold text-white leading-tight max-w-xl">
+                Vendor matching for every venue style — from heritage to beachfront.
+              </h4>
             </div>
           </div>
         </div>

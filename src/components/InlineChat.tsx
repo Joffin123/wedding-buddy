@@ -170,7 +170,7 @@ function WeddingMascot() {
 
 function LanguageToggle({ language, onChange }: { language: "en" | "ml"; onChange: (l: "en" | "ml") => void }) {
   return (
-    <div className="flex items-center gap-1 rounded-full border border-rose-200 bg-rose-50/80 p-0.5 text-[11px] font-bold">
+    <div className="flex items-center gap-1 rounded-full border border-purple-200 bg-purple-50/80 p-0.5 text-[11px] font-bold">
       <button
         onClick={() => onChange("en")}
         className={`rounded-full px-2.5 py-1 transition-all ${language === "en" ? "bg-white shadow-sm text-[#2A1A33]" : "text-[#2A1A33]/50 hover:text-[#2A1A33]/80"}`}
@@ -207,13 +207,13 @@ function OnboardingWizard({ onComplete }: { onComplete: (data: WeddingContext) =
     <div className="relative flex flex-col items-center px-6 py-8 sm:py-10">
       {/* Decorative top motifs */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <svg className="absolute -top-4 -right-6 h-28 w-28 text-rose-200/40 animate-wb-spin-slow" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.1">
+        <svg className="absolute -top-4 -right-6 h-28 w-28 text-purple-200/30 animate-wb-spin-slow" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.1">
           <circle cx="32" cy="32" r="4" />
           {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
             <ellipse key={a} cx="32" cy="18" rx="4" ry="10" transform={`rotate(${a} 32 32)`} />
           ))}
         </svg>
-        <svg className="absolute -bottom-3 -left-4 h-24 w-24 text-amber-200/40 animate-wb-spin-slow" style={{ animationDirection: "reverse" }} viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.1">
+        <svg className="absolute -bottom-3 -left-4 h-24 w-24 text-amber-200/30 animate-wb-spin-slow" style={{ animationDirection: "reverse" }} viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.1">
           <circle cx="32" cy="32" r="4" />
           {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
             <ellipse key={a} cx="32" cy="18" rx="4" ry="10" transform={`rotate(${a} 32 32)`} />
@@ -230,7 +230,7 @@ function OnboardingWizard({ onComplete }: { onComplete: (data: WeddingContext) =
             key={s}
             animate={{ width: s === step ? 20 : 8, opacity: s <= step ? 1 : 0.3 }}
             transition={{ type: "spring", stiffness: 300, damping: 24 }}
-            className={`h-2 rounded-full ${s === step ? "bg-gradient-to-r from-rose-500 to-indigo-500" : "bg-rose-200"}`}
+            className={`h-2 rounded-full ${s === step ? "bg-gradient-to-r from-[#8B31C7] to-fuchsia-500" : "bg-purple-100"}`}
           />
         ))}
       </div>
@@ -239,8 +239,8 @@ function OnboardingWizard({ onComplete }: { onComplete: (data: WeddingContext) =
         {/* ── Step 1: Crowd ── */}
         {step === 1 && (
           <motion.div key="step1" variants={stepVariants} initial="enter" animate="center" exit="exit" className="w-full max-w-md text-center">
-            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-rose-500">Step 1 of 3</p>
-            <h3 className="font-display text-2xl font-medium text-[#2A1A33]">How big is the celebration?</h3>
+            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8B31C7]">Step 1 of 3</p>
+            <h3 className="font-display text-2xl font-bold text-[#2A1A33]">How big is the celebration?</h3>
             <p className="mt-2 text-sm text-[#2A1A33]/60">Expected number of guests</p>
             <div className="mt-6 grid grid-cols-2 gap-3">
               {CROWD_OPTIONS.map((opt) => (
@@ -249,9 +249,9 @@ function OnboardingWizard({ onComplete }: { onComplete: (data: WeddingContext) =
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => { setCrowd(opt.label); advance(2); }}
-                  className={`group flex flex-col items-center rounded-2xl border-2 px-4 py-4 transition-all ${crowd === opt.label ? "border-rose-500 bg-rose-50" : "border-rose-100 bg-white hover:border-rose-300 hover:bg-rose-50/50"}`}
+                  className={`group flex flex-col items-center rounded-2xl border-2 px-4 py-5 transition-all duration-300 ${crowd === opt.label ? "border-[#8B31C7] bg-[#F5F0FF]/60 shadow-sm" : "border-purple-100 bg-white hover:border-purple-300 hover:bg-purple-50/30"}`}
                 >
-                  <span className="text-3xl">{opt.icon}</span>
+                  <span className="text-4xl transition-transform group-hover:scale-110">{opt.icon}</span>
                   <span className="mt-2 text-sm font-bold text-[#2A1A33]">{opt.label}</span>
                 </motion.button>
               ))}
@@ -262,8 +262,8 @@ function OnboardingWizard({ onComplete }: { onComplete: (data: WeddingContext) =
         {/* ── Step 2: Place ── */}
         {step === 2 && (
           <motion.div key="step2" variants={stepVariants} initial="enter" animate="center" exit="exit" className="w-full max-w-md text-center">
-            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-rose-500">Step 2 of 3</p>
-            <h3 className="font-display text-2xl font-medium text-[#2A1A33]">Where in Kerala?</h3>
+            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8B31C7]">Step 2 of 3</p>
+            <h3 className="font-display text-2xl font-bold text-[#2A1A33]">Where in Kerala?</h3>
             <p className="mt-2 text-sm text-[#2A1A33]/60">Pick your preferred district or region</p>
             <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {KERALA_DISTRICTS.map((d) => (
@@ -272,13 +272,13 @@ function OnboardingWizard({ onComplete }: { onComplete: (data: WeddingContext) =
                   whileHover={{ scale: 1.03, y: -1 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => { setPlace(d); advance(3); }}
-                  className={`rounded-xl border-2 px-3 py-2.5 text-xs font-semibold transition-all ${place === d ? "border-rose-500 bg-rose-50 text-rose-700" : "border-rose-100 bg-white text-[#2A1A33]/80 hover:border-rose-300 hover:text-rose-700"}`}
+                  className={`rounded-xl border-2 px-3 py-2.5 text-xs font-semibold transition-all duration-200 ${place === d ? "border-[#8B31C7] bg-[#F5F0FF] text-[#8B31C7]" : "border-purple-100 bg-white text-[#2A1A33]/80 hover:border-purple-300 hover:text-[#8B31C7]"}`}
                 >
                   {d}
                 </motion.button>
               ))}
             </div>
-            <button onClick={() => advance(1)} className="mt-5 text-xs text-[#2A1A33]/50 hover:text-rose-600 transition-colors">
+            <button onClick={() => advance(1)} className="mt-5 text-xs text-[#2A1A33]/50 hover:text-[#8B31C7] transition-colors">
               ← Back
             </button>
           </motion.div>
@@ -287,8 +287,8 @@ function OnboardingWizard({ onComplete }: { onComplete: (data: WeddingContext) =
         {/* ── Step 3: Food ── */}
         {step === 3 && (
           <motion.div key="step3" variants={stepVariants} initial="enter" animate="center" exit="exit" className="w-full max-w-md text-center">
-            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-rose-500">Step 3 of 3</p>
-            <h3 className="font-display text-2xl font-medium text-[#2A1A33]">What&apos;s on the menu?</h3>
+            <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8B31C7]">Step 3 of 3</p>
+            <h3 className="font-display text-2xl font-bold text-[#2A1A33]">What&apos;s on the menu?</h3>
             <p className="mt-2 text-sm text-[#2A1A33]/60">Choose your preferred food style</p>
             <div className="mt-6 grid gap-3">
               {FOOD_OPTIONS.map((opt) => (
@@ -297,19 +297,19 @@ function OnboardingWizard({ onComplete }: { onComplete: (data: WeddingContext) =
                   whileHover={{ scale: 1.02, x: 4 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => { setFoodType(opt.label); finish(opt.label); }}
-                  className="flex items-center justify-between rounded-2xl border-2 border-rose-100 bg-white px-5 py-4 text-left transition-all hover:border-rose-400 hover:bg-rose-50"
+                  className="flex items-center justify-between rounded-2xl border-2 border-purple-100 bg-white px-5 py-4.5 text-left transition-all duration-300 hover:border-[#8B31C7] hover:bg-[#F5F0FF]/40"
                 >
                   <div>
                     <p className="text-sm font-bold text-[#2A1A33]">{opt.label}</p>
                     <p className="text-xs text-[#2A1A33]/55 mt-0.5">{opt.desc}</p>
                   </div>
-                  <svg className="h-4 w-4 flex-shrink-0 text-rose-400" viewBox="0 0 20 20" fill="currentColor">
+                  <svg className="h-4 w-4 flex-shrink-0 text-purple-400" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                   </svg>
                 </motion.button>
               ))}
             </div>
-            <button onClick={() => advance(2)} className="mt-5 text-xs text-[#2A1A33]/50 hover:text-rose-600 transition-colors">
+            <button onClick={() => advance(2)} className="mt-5 text-xs text-[#2A1A33]/50 hover:text-[#8B31C7] transition-colors">
               ← Back
             </button>
           </motion.div>
@@ -332,7 +332,7 @@ function VenueCardGrid({ items }: { items: VenueCard[] }) {
           variants={cardVariants}
           initial="hidden"
           animate="visible"
-          className="group overflow-hidden rounded-2xl border border-rose-100 bg-white/95 shadow-[0_8px_30px_-18px_rgba(232,115,155,0.4)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-20px_rgba(232,115,155,0.55)]"
+          className="group overflow-hidden rounded-2xl border border-purple-100 bg-white/95 shadow-[0_8px_30px_-18px_rgba(139,49,199,0.25)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-20px_rgba(139,49,199,0.35)] animate-wb-fade-up"
         >
           <div className={`relative aspect-[5/3] overflow-hidden bg-gradient-to-br ${v.gradient}`}>
             {v.image ? (
@@ -341,23 +341,23 @@ function VenueCardGrid({ items }: { items: VenueCard[] }) {
               <GradientFallback label={v.type} />
             )}
             <div className="absolute inset-x-0 top-0 flex items-start justify-between p-2.5">
-              <span className="rounded-full border border-rose-200 bg-white/95 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-[#2A1A33] backdrop-blur-sm">{v.type}</span>
+              <span className="rounded-full border border-purple-200 bg-white/95 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-[#2A1A33] backdrop-blur-sm">{v.type}</span>
               {v.featured && (
                 <span className="rounded-full bg-gradient-to-r from-amber-400 to-rose-400 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-white shadow-md">★ Featured</span>
               )}
             </div>
           </div>
           <div className="p-3.5">
-            <h4 className="font-display text-lg font-medium leading-tight text-[#2A1A33]">{v.name}</h4>
+            <h4 className="font-display text-lg font-bold leading-tight text-[#2A1A33]">{v.name}</h4>
             <p className="mt-0.5 text-xs text-[#2A1A33]/60">{v.location}</p>
-            <p className="mt-2 text-xs leading-relaxed text-[#2A1A33]/80">{v.tagline}</p>
-            <div className="mt-3 flex items-end justify-between border-t border-rose-100 pt-2.5">
+            <p className="mt-2 text-sm leading-relaxed text-[#2A1A33]/80">{v.tagline}</p>
+            <div className="mt-3 flex items-end justify-between border-t border-purple-100 pt-2.5">
               <div>
                 <p className="text-[9px] font-semibold uppercase tracking-[0.14em] text-[#2A1A33]/45">From</p>
-                <p className="font-display text-base font-medium text-[#2A1A33] leading-tight">{INR(v.priceFrom)}</p>
+                <p className="font-sans text-base font-bold text-[#2A1A33] leading-tight">{INR(v.priceFrom)}</p>
                 <p className="text-[10px] text-[#2A1A33]/50">{v.capacity}</p>
               </div>
-              <Link href="/contact" className="rounded-full bg-rose-50 px-3 py-1.5 text-[10px] font-bold text-rose-700 transition-all hover:bg-gradient-to-r hover:from-rose-500 hover:to-indigo-500 hover:text-white">
+              <Link href="/contact" className="rounded-full bg-purple-50 px-3.5 py-1.5 text-xs font-bold text-[#8B31C7] transition-all hover:bg-gradient-to-r hover:from-[#8B31C7] hover:to-fuchsia-600 hover:text-white cursor-pointer">
                 Enquire →
               </Link>
             </div>
@@ -379,7 +379,7 @@ function VendorCardGrid({ items }: { items: VendorCard[] }) {
           variants={cardVariants}
           initial="hidden"
           animate="visible"
-          className="group overflow-hidden rounded-2xl border border-rose-100 bg-white/95 shadow-[0_8px_30px_-18px_rgba(232,115,155,0.4)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-20px_rgba(232,115,155,0.55)]"
+          className="group overflow-hidden rounded-2xl border border-purple-100 bg-white/95 shadow-[0_8px_30px_-18px_rgba(139,49,199,0.25)] transition-all hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-20px_rgba(139,49,199,0.35)]"
         >
           <div className={`relative aspect-[4/3] overflow-hidden bg-gradient-to-br ${v.gradient}`}>
             {v.image ? (
@@ -403,15 +403,15 @@ function VendorCardGrid({ items }: { items: VendorCard[] }) {
             <p className="mt-2 text-xs leading-relaxed text-[#2A1A33]/80">{v.tagline}</p>
             <div className="mt-2 flex flex-wrap gap-1">
               {v.specialties.slice(0, 3).map((s) => (
-                <span key={s} className="rounded-full border border-rose-100 bg-rose-50/70 px-1.5 py-0.5 text-[9px] font-semibold text-rose-700">{s}</span>
+                <span key={s} className="rounded-full border border-purple-100 bg-purple-50/70 px-2 py-0.5 text-[10px] font-semibold text-[#8B31C7]">{s}</span>
               ))}
             </div>
-            <div className="mt-3 flex items-end justify-between border-t border-rose-100 pt-2.5">
+            <div className="mt-3 flex items-end justify-between border-t border-purple-100 pt-2.5">
               <div>
-                <p className="font-display text-base font-medium text-[#2A1A33] leading-tight">{INR(v.priceFrom)}</p>
+                <p className="font-sans text-base font-bold text-[#2A1A33] leading-tight">{INR(v.priceFrom)}</p>
                 <p className="text-[10px] text-[#2A1A33]/50">{v.priceUnit}</p>
               </div>
-              <Link href="/contact" className="rounded-full bg-rose-50 px-3 py-1.5 text-[10px] font-bold text-rose-700 transition-all hover:bg-gradient-to-r hover:from-rose-500 hover:to-indigo-500 hover:text-white">
+              <Link href="/contact" className="rounded-full bg-purple-50 px-3.5 py-1.5 text-xs font-bold text-[#8B31C7] transition-all hover:bg-gradient-to-r hover:from-[#8B31C7] hover:to-fuchsia-600 hover:text-white cursor-pointer">
                 Contact →
               </Link>
             </div>
@@ -433,9 +433,9 @@ function GalleryGrid({ items }: { items: GalleryCard[] }) {
           variants={cardVariants}
           initial="hidden"
           animate="visible"
-          className="group overflow-hidden rounded-2xl border border-rose-100 bg-white/90"
+          className="group overflow-hidden rounded-2xl border border-purple-100 bg-white/90 shadow-sm"
         >
-          <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-rose-100 via-amber-100 to-indigo-100">
+          <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-purple-100 via-amber-100 to-indigo-100">
             {g.image ? (
               <Image src={g.image} alt={g.title} fill sizes="(max-width:640px) 50vw, 200px" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             ) : (
@@ -454,7 +454,7 @@ function GalleryGrid({ items }: { items: GalleryCard[] }) {
 
 function EmptyToolResult({ label }: { label: string }) {
   return (
-    <div className="mt-3 rounded-2xl border border-dashed border-rose-200 bg-white/70 p-4 text-xs text-[#2A1A33]/65">
+    <div className="mt-3 rounded-2xl border border-dashed border-purple-200 bg-white/70 p-4.5 text-sm text-[#2A1A33]/65">
       No {label} match yet — try loosening the filters.
     </div>
   );
@@ -482,15 +482,15 @@ function RenderToolPart({ part }: { part: ToolPart }) {
 
   if (pending) {
     return (
-      <div className="mt-2 flex items-center gap-2 rounded-2xl border border-rose-100 bg-white/70 px-3 py-2 text-xs text-[#2A1A33]/70">
-        <span className="flex h-1.5 w-1.5 animate-ping rounded-full bg-rose-400" />
+      <div className="mt-2 flex items-center gap-2 rounded-2xl border border-purple-100 bg-white/70 px-3.5 py-2.5 text-xs text-[#2A1A33]/75">
+        <span className="flex h-1.5 w-1.5 animate-ping rounded-full bg-purple-400" />
         Looking up {name === "searchVenues" ? "venues" : name === "searchVendors" ? "vendors" : "inspiration"} …
       </div>
     );
   }
   if (errored) {
     return (
-      <div className="mt-2 rounded-2xl border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-700">
+      <div className="mt-2 rounded-2xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-xs text-red-700">
         Couldn&apos;t load results: {part.errorText || "unknown error"}
       </div>
     );
@@ -499,7 +499,7 @@ function RenderToolPart({ part }: { part: ToolPart }) {
   const out = part.output as { items?: unknown[]; error?: string } | undefined;
   if (out?.error) {
     return (
-      <div className="mt-2 rounded-2xl border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-700">{out.error}</div>
+      <div className="mt-2 rounded-2xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-xs text-red-700">{out.error}</div>
     );
   }
 
@@ -565,10 +565,10 @@ export default function InlineChat() {
     <div id="wb-chat" className="relative w-full">
       {/* Decorative glow */}
       <div aria-hidden className="pointer-events-none absolute -inset-4 -z-10">
-        <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-rose-200/40 via-amber-200/30 to-indigo-200/40 blur-3xl" />
+        <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-purple-200/30 via-pink-100/20 to-indigo-200/30 blur-3xl" />
       </div>
 
-      <div className="relative overflow-hidden rounded-[2rem] border border-rose-200/80 bg-white/85 backdrop-blur-2xl shadow-[0_30px_90px_-30px_rgba(232,115,155,0.55)]">
+      <div className="relative overflow-hidden rounded-[2rem] border border-purple-100/80 bg-white/90 backdrop-blur-2xl shadow-[0_30px_90px_-30px_rgba(139,49,199,0.25)]">
         <AnimatePresence mode="wait">
           {!onboardingDone ? (
             /* ══ Onboarding phase ══ */
@@ -579,12 +579,12 @@ export default function InlineChat() {
               exit={{ opacity: 0, scale: 0.97, transition: { duration: 0.25 } }}
             >
               {/* Onboarding header */}
-              <div className="flex items-center justify-between border-b border-rose-100/70 px-6 py-4">
+              <div className="flex items-center justify-between border-b border-purple-100/60 px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-rose-500 via-fuchsia-500 to-indigo-500 text-xs font-bold text-white shadow-md">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-[#8B31C7] via-fuchsia-500 to-indigo-500 text-xs font-bold text-white shadow-md">
                     WB
                   </div>
-                  <span className="font-display text-base font-medium text-[#2A1A33]">Wedding Buddy</span>
+                  <span className="font-display text-base font-semibold text-[#2A1A33]">Wedding Buddy</span>
                 </div>
                 <span className="text-xs text-[#2A1A33]/50">Quick setup · 30 seconds</span>
               </div>
@@ -600,13 +600,13 @@ export default function InlineChat() {
             >
               {/* Inner decorative motifs */}
               <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-                <svg className="absolute -top-6 -right-6 h-32 w-32 text-rose-200/50 animate-wb-spin-slow" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.1">
+                <svg className="absolute -top-6 -right-6 h-32 w-32 text-purple-200/30 animate-wb-spin-slow" viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.1">
                   <circle cx="32" cy="32" r="4" />
                   {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
                     <ellipse key={a} cx="32" cy="18" rx="4" ry="10" transform={`rotate(${a} 32 32)`} />
                   ))}
                 </svg>
-                <svg className="absolute -bottom-4 -left-4 h-28 w-28 text-amber-200/50 animate-wb-spin-slow" style={{ animationDirection: "reverse" }} viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.1">
+                <svg className="absolute -bottom-4 -left-4 h-28 w-28 text-amber-200/20 animate-wb-spin-slow" style={{ animationDirection: "reverse" }} viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.1">
                   <circle cx="32" cy="32" r="4" />
                   {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
                     <ellipse key={a} cx="32" cy="18" rx="4" ry="10" transform={`rotate(${a} 32 32)`} />
@@ -615,13 +615,13 @@ export default function InlineChat() {
               </div>
 
               {/* Chat Header */}
-              <div className="relative flex items-center justify-between border-b border-rose-100/70 px-6 py-4">
+              <div className="relative flex items-center justify-between border-b border-purple-100/60 px-6 py-4.5 bg-gradient-to-r from-purple-50/20 via-white to-pink-50/20">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-500 via-fuchsia-500 to-indigo-500 text-sm font-bold text-white shadow-lg shadow-rose-500/30 animate-wb-bob">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8B31C7] via-fuchsia-500 to-indigo-500 text-sm font-bold text-white shadow-lg shadow-purple-500/30 animate-wb-bob">
                     WB
                   </div>
                   <div>
-                    <h2 className="font-display text-lg font-medium text-[#2A1A33] leading-tight">Wedding Buddy Concierge</h2>
+                    <h2 className="font-display text-lg font-semibold text-[#2A1A33] leading-tight">Wedding Buddy Concierge</h2>
                     <p className="mt-0.5 flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] text-emerald-600 leading-tight">
                       <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
                       AI · Live · Kerala-first
@@ -630,11 +630,11 @@ export default function InlineChat() {
                 </div>
                 <div className="flex items-center gap-2">
                   {weddingContext && (
-                    <div className="hidden sm:flex items-center gap-1.5 rounded-full border border-rose-100 bg-rose-50/80 px-3 py-1 text-[10px] text-[#2A1A33]/60">
+                    <div className="hidden sm:flex items-center gap-1.5 rounded-full border border-purple-100 bg-[#F5F0FF]/80 px-3 py-1 text-[10px] text-[#2A1A33]/65">
                       <span>👥 {weddingContext.crowd}</span>
-                      <span className="text-rose-300">·</span>
+                      <span className="text-purple-300">·</span>
                       <span>📍 {weddingContext.place}</span>
-                      <span className="text-rose-300">·</span>
+                      <span className="text-purple-300">·</span>
                       <span>🍽 {weddingContext.foodType}</span>
                     </div>
                   )}
@@ -645,7 +645,7 @@ export default function InlineChat() {
               {/* Messages */}
               <div
                 ref={scrollRef}
-                className="relative flex-1 overflow-y-auto px-4 py-5 sm:px-6 [scrollbar-width:thin] [scrollbar-color:rgba(232,115,155,0.35)_transparent]"
+                className="relative flex-1 overflow-y-auto px-4 py-5 sm:px-6 [scrollbar-width:thin] [scrollbar-color:rgba(139,49,199,0.25)_transparent]"
                 style={{ minHeight: "420px", maxHeight: "560px" }}
               >
                 {messages.length === 0 && (
@@ -654,7 +654,7 @@ export default function InlineChat() {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.15 }}
-                      className="rounded-3xl border border-rose-200 bg-gradient-to-br from-rose-50 via-white to-indigo-50 p-5 sm:p-6 shadow-sm"
+                      className="rounded-3xl border border-purple-100 bg-gradient-to-br from-[#F5F0FF]/60 via-white to-pink-50/40 p-5 sm:p-6 shadow-sm"
                     >
                       <p className="font-display text-xl sm:text-2xl font-normal leading-relaxed text-[#2A1A33] text-balance">
                         {language === "ml"
@@ -673,9 +673,9 @@ export default function InlineChat() {
                             transition={{ delay: 0.2 + i * 0.06 }}
                             onClick={() => submit(s)}
                             disabled={isBusy}
-                            className="group flex items-start gap-2 rounded-2xl border border-rose-100 bg-white px-4 py-3 text-left text-xs leading-relaxed text-[#2A1A33]/80 transition-all hover:-translate-y-0.5 hover:border-rose-400 hover:bg-rose-50 hover:text-rose-700 disabled:opacity-50"
+                            className="group flex items-start gap-2 rounded-2xl border border-purple-100 bg-white px-4 py-3.5 text-left text-xs leading-relaxed text-[#2A1A33]/80 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#8B31C7] hover:bg-[#F5F0FF]/40 hover:text-[#8B31C7] disabled:opacity-50 shadow-sm"
                           >
-                            <svg className="mt-0.5 h-3 w-3 flex-shrink-0 text-rose-400 transition-colors group-hover:text-rose-600" viewBox="0 0 20 20" fill="currentColor">
+                            <svg className="mt-0.5 h-3 w-3 flex-shrink-0 text-purple-400 transition-colors group-hover:text-[#8B31C7]" viewBox="0 0 20 20" fill="currentColor">
                               <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
                             </svg>
                             <span>{s}</span>
@@ -700,7 +700,7 @@ export default function InlineChat() {
                       >
                         <div className={`max-w-[92%] ${isUser ? "" : "w-full"}`}>
                           {text && (
-                            <div className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${isUser ? "bg-gradient-to-br from-rose-500 to-fuchsia-500 text-white shadow-lg shadow-rose-500/30" : "border border-rose-100 bg-white text-[#2A1A33]"}`}>
+                            <div className={`rounded-2xl px-4.5 py-3 text-sm leading-relaxed ${isUser ? "bg-gradient-to-r from-[#8B31C7] via-fuchsia-600 to-[#8B31C7] text-white shadow-md shadow-purple-500/20" : "border border-purple-100 bg-white text-[#2A1A33]"}`}>
                               {text.split("\n").map((line, i) => (
                                 <p key={i} className={i > 0 ? "mt-2" : ""}>{line || " "}</p>
                               ))}
@@ -716,19 +716,19 @@ export default function InlineChat() {
 
                   {status === "submitted" && (
                     <div className="flex justify-start">
-                      <div className="flex items-center gap-1.5 rounded-2xl border border-rose-100 bg-white px-4 py-3">
-                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-rose-400 [animation-delay:-0.3s]" />
-                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-rose-400 [animation-delay:-0.15s]" />
-                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-rose-400" />
+                      <div className="flex items-center gap-1.5 rounded-2xl border border-purple-100 bg-white px-4 py-3">
+                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-purple-400 [animation-delay:-0.3s]" />
+                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-purple-400 [animation-delay:-0.15s]" />
+                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-purple-400" />
                       </div>
                     </div>
                   )}
 
                   {error && (
-                    <div className="rounded-2xl border border-rose-300 bg-rose-50 p-3">
-                      <p className="text-xs font-semibold text-rose-700">Something went wrong.</p>
-                      <p className="mt-1 text-xs leading-relaxed text-rose-600">{error.message || "The concierge couldn't be reached."}</p>
-                      <button onClick={() => clearError()} className="mt-2 text-[11px] font-bold uppercase tracking-wider text-rose-700 hover:text-rose-900">Dismiss →</button>
+                    <div className="rounded-2xl border border-red-200 bg-red-50 p-3.5">
+                      <p className="text-sm font-semibold text-red-700">Something went wrong.</p>
+                      <p className="mt-1 text-xs leading-relaxed text-red-600">{error.message || "The concierge couldn't be reached."}</p>
+                      <button onClick={() => clearError()} className="mt-2 text-[11px] font-bold uppercase tracking-wider text-red-700 hover:text-red-900 cursor-pointer">Dismiss →</button>
                     </div>
                   )}
                 </div>
@@ -737,9 +737,9 @@ export default function InlineChat() {
               {/* Input */}
               <form
                 onSubmit={(e) => { e.preventDefault(); submit(input); }}
-                className="relative border-t border-rose-100/70 bg-white/80 p-3 sm:p-4"
+                className="relative border-t border-purple-100/60 bg-white/90 p-3 sm:p-4"
               >
-                <div className="flex items-center gap-2 rounded-full border border-rose-200 bg-white pl-5 pr-1.5 focus-within:border-rose-400 focus-within:shadow-[0_0_0_4px_rgba(232,115,155,0.12)] transition-all">
+                <div className="flex items-center gap-2 rounded-full border border-purple-200 bg-white pl-5 pr-1.5 focus-within:border-[#8B31C7] focus-within:shadow-[0_0_0_4px_rgba(139,49,199,0.12)] transition-all shadow-sm">
                   <input
                     ref={inputRef}
                     type="text"
@@ -752,11 +752,11 @@ export default function InlineChat() {
                     className="flex-1 bg-transparent py-3.5 text-sm text-[#2A1A33] placeholder:text-[#2A1A33]/40 focus:outline-none"
                   />
                   {isBusy ? (
-                    <button type="button" onClick={() => stop()} aria-label="Stop generation" className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-rose-100 text-rose-600 transition-colors hover:bg-rose-200">
+                    <button type="button" onClick={() => stop()} aria-label="Stop generation" className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-[#F5F0FF] text-[#8B31C7] hover:bg-purple-100 transition-colors">
                       <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="currentColor"><rect x="3" y="3" width="10" height="10" rx="1.5" /></svg>
                     </button>
                   ) : (
-                    <button type="submit" disabled={!input.trim()} aria-label="Send message" className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-rose-500 via-fuchsia-500 to-indigo-500 text-white transition-all enabled:hover:shadow-[0_0_22px_rgba(232,115,155,0.55)] disabled:cursor-not-allowed disabled:bg-none disabled:bg-rose-100 disabled:text-rose-300">
+                    <button type="submit" disabled={!input.trim()} aria-label="Send message" className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[#8B31C7] to-fuchsia-500 text-white transition-all enabled:hover:shadow-[0_0_22px_rgba(139,49,199,0.4)] disabled:cursor-not-allowed disabled:bg-none disabled:bg-purple-50 disabled:text-purple-300">
                       <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M3.105 3.105a1.5 1.5 0 012.122-.001l12.728 7.364a1 1 0 010 1.732L5.227 19.564a1.5 1.5 0 01-2.122-2.122L7.586 13H11a1 1 0 100-2H7.586L3.105 5.227a1.5 1.5 0 010-2.122z" />
                       </svg>

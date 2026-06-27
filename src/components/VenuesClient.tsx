@@ -364,7 +364,7 @@ export default function VenuesClient({ venues }: { venues: VenueRow[] }) {
                       <div className="mt-5 flex items-end justify-between border-t border-rose-100 pt-4">
                         <div>
                           <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#2A1A33]/45">From</p>
-                          <p className="mt-0.5 font-display text-xl font-medium text-[#2A1A33] leading-tight">{formatINR(v.price_from)}</p>
+                          <p className="mt-0.5 font-sans text-xl font-medium text-[#2A1A33] leading-tight">{formatINR(v.price_from)}</p>
                           <p className="mt-0.5 text-[11px] text-[#2A1A33]/50">{capacity}</p>
                         </div>
                         <Link

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 type FormState = {
@@ -42,16 +43,28 @@ export default function ContactPage() {
   return (
     <div className="relative w-full">
       {/* HERO */}
-      <section className="pt-12 pb-10 sm:pt-20">
-        <div className="wb-container text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-rose-600 animate-wb-fade-up">Contact Us</p>
-          <h1 className="mt-4 font-display text-5xl font-medium leading-[1.08] tracking-tight text-[#2A1A33] sm:text-6xl md:text-7xl text-balance animate-wb-fade-up wb-delay-100">
+      <section className="pt-12 pb-10 sm:pt-20 bg-gradient-to-b from-[#FFFAF0] via-[#FEF9F3] to-white relative overflow-hidden border-b border-purple-100">
+        {/* Background logo watermark */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden -z-10">
+          <Image
+            src="/wedding-buddy-logo.png"
+            alt=""
+            width={650}
+            height={650}
+            className="opacity-[0.035] scale-125 object-contain"
+          />
+        </div>
+        <div className="absolute top-10 left-10 h-64 w-64 rounded-full bg-rose-200/10 blur-3xl animate-wb-drift pointer-events-none" />
+        <div className="absolute bottom-5 right-5 h-64 w-64 rounded-full bg-indigo-200/10 blur-3xl animate-wb-float-slow pointer-events-none" />
+        <div className="wb-container text-center relative z-10">
+          <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#8B31C7] animate-wb-fade-up">Contact Us</p>
+          <h1 className="mt-4 font-display text-5xl sm:text-7xl font-extrabold leading-[1.08] tracking-tight text-[#2A1A33] text-balance animate-wb-fade-up wb-delay-100">
             Let&apos;s plan something
             <span className="block wb-gradient-text italic animate-wb-shimmer pb-1">
               unforgettable together.
             </span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-[#2A1A33]/70 sm:text-lg animate-wb-fade-up wb-delay-200">
+          <p className="mx-auto mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-[#2A1A33]/70 animate-wb-fade-up wb-delay-200">
             Tell us a little about your day. A human concierge will reply within
             24 hours with a tailored plan — or ping the AI for an instant
             shortlist.
@@ -61,7 +74,7 @@ export default function ContactPage() {
           <div className="mt-10 animate-wb-fade-up wb-delay-300">
             <Link
               href="/#wb-chat"
-              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-500 px-6 py-3 text-sm font-bold text-white shadow-[0_14px_40px_-10px_rgba(232,115,155,0.7)] animate-wb-pulse-ring transition-all hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 px-6 py-3 text-sm font-bold text-white shadow-[0_14px_40px_-10px_rgba(139,49,199,0.4)] animate-wb-pulse-ring transition-all hover:-translate-y-0.5"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -73,13 +86,13 @@ export default function ContactPage() {
       </section>
 
       {/* CONTENT */}
-      <section className="pb-24">
+      <section className="pb-24 pt-12">
         <div className="wb-container">
           <div className="grid gap-8 lg:grid-cols-5 lg:items-start">
             {/* Info card */}
             <aside className="lg:col-span-2 space-y-4 animate-wb-fade-up">
-              <div className="rounded-3xl wb-card p-7">
-                <h2 className="font-display text-2xl font-medium leading-tight text-[#2A1A33]">
+              <div className="rounded-3xl border border-purple-100 bg-[#FEF9F3] p-7 shadow-sm">
+                <h2 className="font-display text-2xl font-bold leading-tight text-[#2A1A33]">
                   Reach the Wedding Buddy team
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-[#2A1A33]/70">
@@ -134,7 +147,7 @@ export default function ContactPage() {
                       </div>
                       <div className="min-w-0">
                         <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#2A1A33]/50 leading-tight">{c.label}</p>
-                        <a href={c.href} className="mt-0.5 block text-sm font-semibold text-[#2A1A33] hover:text-rose-600 transition-colors break-words">
+                        <a href={c.href} className="mt-0.5 block text-sm font-semibold text-[#2A1A33] hover:text-[#8B31C7] transition-colors break-words">
                           {c.value}
                         </a>
                       </div>
@@ -143,8 +156,8 @@ export default function ContactPage() {
                 </ul>
               </div>
 
-              <div className="rounded-3xl border border-rose-200 bg-gradient-to-br from-rose-50 via-white to-indigo-50 p-7">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-rose-600">Office hours</p>
+              <div className="rounded-3xl border border-purple-100 bg-gradient-to-br from-[#F5F0FF]/40 via-white to-pink-50/40 p-7 shadow-sm">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8B31C7]">Office hours</p>
                 <div className="mt-3 space-y-1.5 text-sm text-[#2A1A33]/80 leading-relaxed">
                   <p>Mon – Sat · 10:00 – 19:00 IST</p>
                   <p>Sunday · AI concierge only</p>
@@ -158,10 +171,10 @@ export default function ContactPage() {
 
             {/* Form card */}
             <div className="lg:col-span-3 animate-wb-fade-up wb-delay-100">
-              <div className="relative rounded-3xl wb-card p-2">
-                <div className="relative overflow-hidden rounded-[1.5rem] border border-rose-100 bg-white p-7 sm:p-10">
-                  <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-rose-200/50 blur-3xl animate-wb-drift" />
-                  <div className="pointer-events-none absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-indigo-200/50 blur-3xl animate-wb-float-slow" />
+              <div className="relative rounded-3xl border border-purple-100 bg-white shadow-[0_20px_50px_-20px_rgba(139,49,199,0.15)] p-2">
+                <div className="relative overflow-hidden rounded-[1.5rem] bg-white p-7 sm:p-10">
+                  <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-purple-200/20 blur-3xl animate-wb-drift" />
+                  <div className="pointer-events-none absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-indigo-200/20 blur-3xl animate-wb-float-slow" />
 
                   {submitted ? (
                     <div className="relative text-center py-10 animate-wb-scale-in">
@@ -170,7 +183,7 @@ export default function ContactPage() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
                       </div>
-                      <h3 className="mt-5 font-display text-2xl font-medium leading-tight text-[#2A1A33]">
+                      <h3 className="mt-5 font-display text-2xl font-bold leading-tight text-[#2A1A33]">
                         Thank you — we&apos;ll be in touch soon.
                       </h3>
                       <p className="mt-3 max-w-md mx-auto text-sm leading-relaxed text-[#2A1A33]/70">
@@ -180,13 +193,13 @@ export default function ContactPage() {
                       <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
                         <Link
                           href="/#wb-chat"
-                          className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-500 px-6 py-3 text-sm font-bold text-white shadow-[0_14px_40px_-10px_rgba(232,115,155,0.7)] transition-all hover:-translate-y-0.5"
+                          className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 px-6 py-3 text-sm font-bold text-white shadow-[0_14px_40px_-10px_rgba(139,49,199,0.4)] transition-all hover:-translate-y-0.5"
                         >
                           Open AI concierge
                         </Link>
                         <button
                           onClick={() => setSubmitted(false)}
-                          className="inline-flex items-center gap-2 rounded-full border border-rose-200 bg-white px-6 py-3 text-sm font-bold text-[#2A1A33] hover:border-rose-400"
+                          className="inline-flex items-center gap-2 rounded-full border border-purple-200 bg-white px-6 py-3 text-sm font-bold text-[#2A1A33] hover:border-[#8B31C7] cursor-pointer"
                         >
                           Send another
                         </button>
@@ -279,7 +292,7 @@ export default function ContactPage() {
                         </p>
                         <button
                           type="submit"
-                          className="group inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-500 px-7 py-3 text-sm font-bold text-white shadow-[0_14px_40px_-10px_rgba(232,115,155,0.7)] transition-all hover:-translate-y-0.5 hover:shadow-[0_22px_60px_-10px_rgba(232,115,155,0.75)]"
+                          className="group inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 px-7 py-3 text-sm font-bold text-white shadow-[0_14px_40px_-10px_rgba(139,49,199,0.4)] transition-all hover:-translate-y-0.5 cursor-pointer"
                         >
                           Send enquiry
                           <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
@@ -296,15 +309,36 @@ export default function ContactPage() {
         </div>
       </section>
 
+      {/* ── Image Section Break ── */}
+      <section className="pb-16 bg-white relative overflow-hidden">
+        <div className="wb-container">
+          <div className="relative h-[300px] w-full rounded-[2rem] overflow-hidden shadow-md group">
+            <Image
+              src="/images/traditional_kerala_marriage.png"
+              alt="Traditional Kerala Wedding Ceremony"
+              fill
+              sizes="100vw"
+              className="object-cover transition-transform duration-[1.2s] group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent flex flex-col justify-end p-8 sm:p-12">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-amber-300 mb-2">Heritage · Temple Ceremony</span>
+              <h4 className="font-display text-2xl sm:text-4xl font-extrabold text-white leading-tight max-w-xl">
+                Curating authentic heritage rituals across Kerala.
+              </h4>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Local input styles */}
       <style>{`
         .wb-input {
           width: 100%;
-          border-radius: 14px;
-          border: 1px solid rgba(232,115,155,0.25);
+          border-radius: 16px;
+          border: 1px solid rgba(139,49,199,0.25);
           background: #ffffff;
-          padding: 0.75rem 1rem;
-          font-size: 0.9rem;
+          padding: 0.9rem 1.15rem;
+          font-size: 1rem;
           color: #2A1A33;
           line-height: 1.5;
           transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
@@ -312,8 +346,8 @@ export default function ContactPage() {
         .wb-input::placeholder { color: rgba(42,26,51,0.4); }
         .wb-input:focus {
           outline: none;
-          border-color: #E8739B;
-          box-shadow: 0 0 0 4px rgba(232,115,155,0.14);
+          border-color: #8B31C7;
+          box-shadow: 0 0 0 5px rgba(139,49,199,0.15);
         }
       `}</style>
     </div>

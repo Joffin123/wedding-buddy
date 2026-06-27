@@ -2,12 +2,16 @@
 
 @theme inline {
   --font-sans: var(--font-sans);
-  --font-display: var(--font-display);
+  --font-serif: var(--font-serif);
+  --font-display: var(--font-serif);
 }
 
 @layer base {
   *, *::before, *::after { box-sizing: border-box; }
-  html, body {
+  html {
+    font-size: 17px;
+  }
+  body {
     background: #ffffff;
     color: #111827;
     -webkit-font-smoothing: antialiased;
@@ -27,20 +31,76 @@
   }
 
   @keyframes wb-fade-up {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes wb-fade-in {
     from { opacity: 0; }
     to   { opacity: 1; }
   }
+  @keyframes wb-drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(6%, 8%) scale(1.08); }
+  }
+  @keyframes wb-float-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes wb-pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(232, 115, 155, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(232, 115, 155, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(232, 115, 155, 0); }
+  }
+  @keyframes wb-heart-beat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.08); }
+    50% { transform: scale(0.96); }
+    75% { transform: scale(1.04); }
+  }
 
   .animate-wb-fade-up  { animation: wb-fade-up 0.5s cubic-bezier(.2,.8,.2,1) both; }
   .animate-wb-fade-in  { animation: wb-fade-in 0.5s ease-out both; }
+  .animate-wb-drift { animation: wb-drift 10s ease-in-out infinite; }
+  .animate-wb-float-slow { animation: wb-float-slow 5s ease-in-out infinite; }
+  .animate-wb-pulse-ring { animation: wb-pulse-ring 2s cubic-bezier(0.24, 0, 0.38, 1) infinite; }
+  .animate-wb-heart-beat { animation: wb-heart-beat 1.2s ease-in-out; }
+  .animate-wb-spin-slow { animation: spin 24s linear infinite; }
+
   .wb-delay-100 { animation-delay: 0.07s; }
   .wb-delay-200 { animation-delay: 0.14s; }
   .wb-delay-300 { animation-delay: 0.21s; }
+  .wb-delay-400 { animation-delay: 0.28s; }
 
   .wb-scroll-hide::-webkit-scrollbar { display: none; }
   .wb-scroll-hide { scrollbar-width: none; }
+
+  /* ── Gradient text utility ── */
+  .wb-gradient-text {
+    background: linear-gradient(135deg, #8B31C7 0%, #d946ef 50%, #8B31C7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+  }
+
+  /* ── Shimmer animation on gradient text ── */
+  @keyframes wb-shimmer {
+    0%   { background-position: 0% center; }
+    100% { background-position: 200% center; }
+  }
+  .animate-wb-shimmer {
+    background: linear-gradient(90deg, #8B31C7 0%, #d946ef 30%, #c084fc 50%, #d946ef 70%, #8B31C7 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: wb-shimmer 4s linear infinite;
+  }
+
+  /* ── Scale-in entry ── */
+  @keyframes wb-scale-in {
+    from { opacity: 0; transform: scale(0.88); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .animate-wb-scale-in { animation: wb-scale-in 0.4s cubic-bezier(.2,.8,.2,1) both; }
 }

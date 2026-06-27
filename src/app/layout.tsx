@@ -1,13 +1,21 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image";
+import MobileNav from "@/components/MobileNav";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
   weight: ["400", "500", "600", "700"],
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: ["400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -25,73 +33,76 @@ const NAV_LINKS = [
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${plusJakarta.variable} scroll-smooth`}>
+    <html lang="en" className={`${plusJakarta.variable} ${playfair.variable} scroll-smooth`}>
       <body className="min-h-screen bg-white text-[#111827] antialiased font-sans overflow-x-hidden">
 
         {/* ── Header ── */}
-        <header className="fixed inset-x-0 top-0 z-50 h-14 border-b border-[#E5E7EB] bg-white">
-          <div className="wb-container flex h-full items-center justify-between">
+        <header className="fixed inset-x-0 top-0 z-50 h-20 border-b border-purple-100 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300">
+          <div className="wb-container grid grid-cols-3 items-center h-full">
 
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#E5E7EB] overflow-hidden group-hover:border-[#8B31C7] transition-colors">
+            {/* Left: Nav (desktop) + Hamburger (mobile) */}
+            <div className="flex items-center justify-start">
+              <MobileNav />
+              <nav className="hidden md:flex items-center gap-6">
+                {NAV_LINKS.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="text-base font-semibold text-[#6B7280] hover:text-[#8B31C7] transition-all relative py-2 group/nav"
+                  >
+                    {l.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#8B31C7] transition-all duration-300 group-hover/nav:w-full" />
+                  </Link>
+                ))}
+              </nav>
+            </div>
+
+            {/* Center: Logo */}
+            <div className="flex items-center justify-center col-span-1">
+              <Link href="/" className="flex flex-col items-center justify-center gap-1.5 group py-1.5">
                 <Image
                   src="/wedding-buddy-logo.png"
                   alt="Wedding Buddy"
-                  width={24}
-                  height={24}
-                  className="h-6 w-6 object-contain"
+                  width={30}
+                  height={30}
+                  className="h-7.5 w-7.5 object-contain group-hover:scale-110 transition-transform duration-300"
                   priority
                 />
-              </div>
-              <span className="text-[15px] font-bold tracking-tight text-[#111827]">
-                Wedding Buddy
-              </span>
-            </Link>
+                <span className="font-display text-[10px] sm:text-[11px] font-black uppercase tracking-[0.16em] bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 bg-clip-text text-transparent group-hover:brightness-110 transition-all text-center">
+                  Wedding Buddy
+                </span>
+              </Link>
+            </div>
 
-            {/* Nav */}
-            <nav className="hidden md:flex items-center gap-6">
-              {NAV_LINKS.map((l) => (
-                <Link
-                  key={l.href}
-                  href={l.href}
-                  className="text-sm font-medium text-[#6B7280] hover:text-[#8B31C7] transition-colors"
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </nav>
-
-            {/* Actions */}
-            <div className="flex items-center gap-3">
+            {/* Right: Actions */}
+            <div className="flex items-center justify-end gap-4">
               <Link
                 href="/contact"
-                className="hidden sm:block text-sm font-medium text-[#6B7280] hover:text-[#111827] transition-colors"
+                className="hidden sm:block text-base font-semibold text-[#6B7280] hover:text-[#8B31C7] transition-colors"
               >
                 Sign in
               </Link>
-              <Link href="/venues" className="inline-flex items-center rounded-lg bg-[#8B31C7] px-4 py-2 text-sm font-semibold text-white hover:bg-[#7a28b0] transition-colors">
-                Get started
+              <Link href="/venues" className="inline-flex items-center rounded-xl bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 px-3.5 py-2 text-sm font-bold text-white hover:shadow-md hover:shadow-purple-500/20 transition-all cursor-pointer md:px-5 md:py-2.5 md:text-[15px]">
+                <span className="hidden sm:inline">Get started</span>
+                <span className="sm:hidden">Start</span>
               </Link>
             </div>
 
           </div>
         </header>
 
-        <main className="w-full pt-14 bg-white">{children}</main>
+        <main className="w-full pt-20 bg-white">{children}</main>
 
         {/* ── Footer ── */}
-        <footer className="mt-20 border-t border-[#E5E7EB] bg-white">
-          <div className="wb-container py-12">
+        <footer className="mt-20 border-t border-purple-100 bg-[#FFFAF0]/30">
+          <div className="wb-container py-16">
             <div className="grid gap-8 sm:grid-cols-4">
 
               {/* Brand */}
               <div className="sm:col-span-2">
-                <Link href="/" className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#E5E7EB] overflow-hidden">
-                    <Image src="/wedding-buddy-logo.png" alt="" width={24} height={24} className="h-6 w-6 object-contain" />
-                  </div>
-                  <span className="font-bold text-[#111827]">Wedding Buddy</span>
+                <Link href="/" className="flex items-center gap-3 group">
+                  <Image src="/wedding-buddy-logo.png" alt="Wedding Buddy" width={32} height={32} className="h-8 w-8 object-contain" />
+                  <span className="font-display text-lg font-extrabold bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 bg-clip-text text-transparent">Wedding Buddy</span>
                 </Link>
                 <p className="mt-3 max-w-xs text-sm leading-relaxed text-[#6B7280]">
                   Kerala&apos;s wedding planning platform — venues, vendors, budgets, and AI guidance in one place.
