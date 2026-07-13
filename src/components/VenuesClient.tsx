@@ -52,7 +52,7 @@ function DestinationModal({ onSelect }: { onSelect: (type: "local" | "destinatio
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.92, opacity: 0, y: 12 }}
         transition={{ type: "spring", stiffness: 300, damping: 26 }}
-        className="relative z-10 w-full max-w-lg overflow-hidden rounded-[2rem] border border-rose-200/80 bg-white shadow-[0_40px_100px_-30px_rgba(232,115,155,0.6)]"
+        className="relative z-10 w-full max-w-lg overflow-hidden rounded-4xl border border-rose-200/80 bg-white shadow-[0_40px_100px_-30px_rgba(232,115,155,0.6)]"
       >
         {/* Decorative background blooms */}
         <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">

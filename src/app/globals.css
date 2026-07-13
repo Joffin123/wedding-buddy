@@ -6,13 +6,28 @@
   --font-display: var(--font-serif);
 }
 
+/* Tighter corners site-wide — every `rounded-*` utility (admin + marketing)
+   reads off these tokens, so this one override reshapes the whole app. */
+@theme {
+  --radius-xs: 0.0625rem;
+  --radius-sm: 0.1875rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.375rem;
+  --radius-xl: 0.5rem;
+  --radius-2xl: 0.625rem;
+  --radius-3xl: 0.875rem;
+  --radius-4xl: 1.125rem;
+}
+
 @layer base {
   *, *::before, *::after { box-sizing: border-box; }
+  /* Root size drives every rem-based Tailwind text-* utility — trimming it
+     here shrinks all text proportionally on both mobile and desktop. */
   html {
-    font-size: 15px;
+    font-size: 13.5px;
   }
   @media (min-width: 768px) {
-    html { font-size: 17px; }
+    html { font-size: 16px; }
   }
   body {
     background: #ffffff;

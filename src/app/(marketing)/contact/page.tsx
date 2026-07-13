@@ -172,7 +172,7 @@ export default function ContactPage() {
             {/* Form card */}
             <div className="lg:col-span-3 animate-wb-fade-up wb-delay-100">
               <div className="relative rounded-3xl border border-purple-100 bg-white shadow-[0_20px_50px_-20px_rgba(139,49,199,0.15)] p-2">
-                <div className="relative overflow-hidden rounded-[1.5rem] bg-white p-7 sm:p-10">
+                <div className="relative overflow-hidden rounded-3xl bg-white p-7 sm:p-10">
                   <div className="pointer-events-none absolute -right-24 -top-24 h-48 w-48 rounded-full bg-purple-200/20 blur-3xl animate-wb-drift" />
                   <div className="pointer-events-none absolute -bottom-24 -left-24 h-48 w-48 rounded-full bg-indigo-200/20 blur-3xl animate-wb-float-slow" />
 
@@ -312,7 +312,7 @@ export default function ContactPage() {
       {/* ── Image Section Break ── */}
       <section className="pb-16 bg-white relative overflow-hidden">
         <div className="wb-container">
-          <div className="relative h-[300px] w-full rounded-[2rem] overflow-hidden shadow-md group">
+          <div className="relative h-[300px] w-full rounded-4xl overflow-hidden shadow-md group">
             <Image
               src="/images/traditional_kerala_marriage.png"
               alt="Traditional Kerala Wedding Ceremony"

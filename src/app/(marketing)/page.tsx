@@ -195,7 +195,7 @@ export default function Home() {
       {/* ── Image Section Break 1 ── */}
       <section className="py-12 sm:py-20 bg-white relative overflow-hidden">
         <div className="wb-container">
-          <div className="relative h-[320px] sm:h-[450px] w-full rounded-[2.5rem] overflow-hidden shadow-lg group">
+          <div className="relative h-[320px] sm:h-[450px] w-full rounded-4xl overflow-hidden shadow-lg group">
             <Image
               src="/images/traditional_kerala_marriage.png"
               alt="Traditional Kerala Wedding Ceremony"
@@ -279,7 +279,7 @@ export default function Home() {
       {/* ── Image Section Break 2 ── */}
       <section className="py-12 sm:py-20 bg-white relative overflow-hidden">
         <div className="wb-container">
-          <div className="relative h-[320px] sm:h-[450px] w-full rounded-[2.5rem] overflow-hidden shadow-lg group">
+          <div className="relative h-[320px] sm:h-[450px] w-full rounded-4xl overflow-hidden shadow-lg group">
             <Image
               src="/images/kerala_beach_reception.png"
               alt="Beachfront Wedding Reception"
@@ -323,7 +323,7 @@ export default function Home() {
       {/* ── Image Section Break 3 ── */}
       <section className="py-12 sm:py-20 bg-white relative overflow-hidden">
         <div className="wb-container">
-          <div className="relative h-[320px] sm:h-[450px] w-full rounded-[2.5rem] overflow-hidden shadow-lg group">
+          <div className="relative h-[320px] sm:h-[450px] w-full rounded-4xl overflow-hidden shadow-lg group">
             <Image
               src="/images/kerala_backwater_wedding.png"
               alt="Backwater Wedding Setup"

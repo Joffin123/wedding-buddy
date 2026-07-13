@@ -97,9 +97,9 @@ export default function FeaturesPage() {
             </div>
 
             <div className="relative">
-              <div className="pointer-events-none absolute -inset-10 -z-10 rounded-[3rem] bg-gradient-to-br from-rose-200 via-fuchsia-100 to-transparent blur-3xl" />
-              <div className="rounded-[2rem] wb-card p-2 transition-transform duration-700 hover:-translate-y-2">
-                <div className="rounded-[1.5rem] border border-rose-100 bg-white p-6">
+              <div className="pointer-events-none absolute -inset-10 -z-10 rounded-4xl bg-gradient-to-br from-rose-200 via-fuchsia-100 to-transparent blur-3xl" />
+              <div className="rounded-4xl wb-card p-2 transition-transform duration-700 hover:-translate-y-2">
+                <div className="rounded-3xl border border-rose-100 bg-white p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#2A1A33]/50">Total budget</p>
@@ -160,7 +160,7 @@ export default function FeaturesPage() {
       {/* ── Image Break: Traditional Wedding ── */}
       <section className="py-8 bg-white relative overflow-hidden">
         <div className="wb-container">
-          <div className="relative h-[300px] w-full rounded-[2rem] overflow-hidden shadow-md group">
+          <div className="relative h-[300px] w-full rounded-4xl overflow-hidden shadow-md group">
             <Image
               src="/images/traditional_kerala_marriage.png"
               alt="Traditional Kerala Wedding Ceremony"
@@ -183,9 +183,9 @@ export default function FeaturesPage() {
         <div className="wb-container">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div className="order-2 lg:order-1 relative">
-              <div className="pointer-events-none absolute -inset-10 -z-10 rounded-[3rem] bg-gradient-to-br from-indigo-200 via-sky-100 to-transparent blur-3xl" />
-              <div className="rounded-[2rem] wb-card p-2 transition-transform duration-700 hover:-translate-y-2">
-                <div className="rounded-[1.5rem] border border-rose-100 bg-white p-6">
+              <div className="pointer-events-none absolute -inset-10 -z-10 rounded-4xl bg-gradient-to-br from-indigo-200 via-sky-100 to-transparent blur-3xl" />
+              <div className="rounded-4xl wb-card p-2 transition-transform duration-700 hover:-translate-y-2">
+                <div className="rounded-3xl border border-rose-100 bg-white p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#2A1A33]/50">Guest list</p>
@@ -329,9 +329,9 @@ export default function FeaturesPage() {
             </div>
 
             <div className="relative">
-              <div className="pointer-events-none absolute -inset-10 -z-10 rounded-[3rem] bg-gradient-to-br from-emerald-200 via-teal-100 to-transparent blur-3xl" />
-              <div className="rounded-[2rem] wb-card p-2 transition-transform duration-700 hover:-translate-y-2">
-                <div className="rounded-[1.5rem] border border-rose-100 bg-white p-6">
+              <div className="pointer-events-none absolute -inset-10 -z-10 rounded-4xl bg-gradient-to-br from-emerald-200 via-teal-100 to-transparent blur-3xl" />
+              <div className="rounded-4xl wb-card p-2 transition-transform duration-700 hover:-translate-y-2">
+                <div className="rounded-3xl border border-rose-100 bg-white p-6">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#2A1A33]/50">Your brief</p>
                   <p className="mt-1 text-sm text-[#2A1A33]/85">
                     &ldquo;Kumarakom backwater wedding · 220 guests · ₹30L total · candid photography · pastel floral aesthetic&rdquo;
@@ -384,7 +384,7 @@ export default function FeaturesPage() {
       {/* ── Image Break: Beachfront Reception ── */}
       <section className="py-8 bg-white relative overflow-hidden">
         <div className="wb-container">
-          <div className="relative h-[300px] w-full rounded-[2rem] overflow-hidden shadow-md group">
+          <div className="relative h-[300px] w-full rounded-4xl overflow-hidden shadow-md group">
             <Image
               src="/images/kerala_beach_reception.png"
               alt="Kerala Beachfront Wedding Reception"
@@ -454,7 +454,7 @@ export default function FeaturesPage() {
             </h2>
           </div>
 
-          <div className="mt-16 overflow-hidden rounded-[2rem] border border-rose-200 bg-white/80 backdrop-blur-sm shadow-[0_20px_60px_-30px_rgba(232,115,155,0.45)]">
+          <div className="mt-16 overflow-hidden rounded-4xl border border-rose-200 bg-white/80 backdrop-blur-sm shadow-[0_20px_60px_-30px_rgba(232,115,155,0.45)]">
             <div className="grid grid-cols-3 divide-x divide-rose-100 text-sm">
               <div className="p-5 text-xs font-semibold uppercase tracking-[0.18em] text-[#2A1A33]/50">Task</div>
               <div className="p-5 text-xs font-semibold uppercase tracking-[0.18em] text-[#2A1A33]/50">Traditional planner</div>
@@ -540,7 +540,7 @@ export default function FeaturesPage() {
       {/* CTA */}
       <section className="pb-24">
         <div className="wb-container max-w-5xl">
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-rose-200 bg-white/90 px-8 py-16 text-center shadow-[0_30px_80px_-30px_rgba(232,115,155,0.5)] sm:px-16 sm:py-20">
+          <div className="relative overflow-hidden rounded-4xl border border-rose-200 bg-white/90 px-8 py-16 text-center shadow-[0_30px_80px_-30px_rgba(232,115,155,0.5)] sm:px-16 sm:py-20">
             <div className="pointer-events-none absolute inset-0">
               <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-emerald-200 to-indigo-200 opacity-60 blur-3xl animate-wb-drift" />
             </div>

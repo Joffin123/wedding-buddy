@@ -80,7 +80,7 @@ export default function BudgetPage() {
       {/* ── Image Section Break ── */}
       <section className="py-8 bg-white relative overflow-hidden">
         <div className="wb-container max-w-4xl">
-          <div className="relative h-[300px] w-full rounded-[2rem] overflow-hidden shadow-md group">
+          <div className="relative h-[300px] w-full rounded-4xl overflow-hidden shadow-md group">
             <Image
               src="/images/traditional_kerala_marriage.png"
               alt="Traditional Kerala Wedding Break"

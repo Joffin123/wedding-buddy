@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import type { VenueRow } from "@/lib/supabase";
 import VenueForm from "@/components/admin/VenueForm";
+import { BackLink, PageHeader } from "@/components/admin/ui";
 import { updateVenue } from "../../actions";
 
 export default async function EditVenuePage({ params }: { params: Promise<{ id: string }> }) {
@@ -12,12 +12,10 @@ export default async function EditVenuePage({ params }: { params: Promise<{ id: 
   if (!venue) notFound();
 
   return (
-    <div>
-      <Link href="/admin/venues" className="text-sm font-semibold text-[#8B31C7] hover:underline">← Back to venues</Link>
-      <h1 className="mt-3 font-display text-2xl font-bold text-[#111827]">Edit {venue.name}</h1>
-      <div className="mt-6">
-        <VenueForm action={updateVenue.bind(null, id)} venue={venue} submitLabel="Save changes" />
-      </div>
+    <div className="space-y-6">
+      <BackLink href="/admin/venues" label="Back to venues" />
+      <PageHeader title={`Edit ${venue.name}`} />
+      <VenueForm action={updateVenue.bind(null, id)} venue={venue} submitLabel="Save changes" />
     </div>
   );
 }

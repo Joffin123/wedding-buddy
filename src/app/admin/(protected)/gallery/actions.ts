@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/admin-auth";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { uploadAdminImage } from "@/lib/admin-upload";
+import { friendlyDbError } from "@/lib/format-db-error";
 
 function parseTags(value: FormDataEntryValue | null): string[] {
   return String(value || "")
@@ -25,7 +26,7 @@ export async function createGalleryItem(formData: FormData) {
   const image_path = await uploadAdminImage(file, "gallery", title || "photo");
 
   const { error } = await supabaseAdmin.from("gallery").insert({ title, caption, tags, image_path });
-  if (error) throw new Error(error.message);
+  if (error) throw new Error(friendlyDbError(error.message));
 
   revalidatePath("/admin/gallery");
   redirect("/admin/gallery");
@@ -45,7 +46,7 @@ export async function updateGalleryItem(id: string, formData: FormData) {
   }
 
   const { error } = await supabaseAdmin.from("gallery").update(update).eq("id", id);
-  if (error) throw new Error(error.message);
+  if (error) throw new Error(friendlyDbError(error.message));
 
   revalidatePath("/admin/gallery");
   redirect("/admin/gallery");
@@ -54,7 +55,7 @@ export async function updateGalleryItem(id: string, formData: FormData) {
 export async function deleteGalleryItem(id: string) {
   await requireAdminSession();
   const { error } = await supabaseAdmin.from("gallery").delete().eq("id", id);
-  if (error) throw new Error(error.message);
+  if (error) throw new Error(friendlyDbError(error.message));
 
   revalidatePath("/admin/gallery");
 }

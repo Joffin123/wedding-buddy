@@ -70,7 +70,7 @@ export default function VenuesPage() {
       {/* ── Image Section Break ── */}
       <section className="pb-4 pt-6 bg-white relative overflow-hidden">
         <div className="wb-container">
-          <div className="relative h-[280px] w-full rounded-[2rem] overflow-hidden shadow-md group">
+          <div className="relative h-[280px] w-full rounded-4xl overflow-hidden shadow-md group">
             <Image
               src="/images/kerala_backwater_wedding.png"
               alt="Kerala Backwater Wedding Venue"

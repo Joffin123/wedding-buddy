@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/admin-auth";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { uploadAdminImage } from "@/lib/admin-upload";
+import { friendlyDbError } from "@/lib/format-db-error";
 
 function parseLines(value: FormDataEntryValue | null): string[] {
   return String(value || "")
@@ -43,7 +44,7 @@ export async function createVendor(formData: FormData) {
   }
 
   const { error } = await supabaseAdmin.from("vendors").insert({ ...fields, image_path });
-  if (error) throw new Error(error.message);
+  if (error) throw new Error(friendlyDbError(error.message));
 
   revalidatePath("/admin/vendors");
   revalidatePath("/vendors");
@@ -61,7 +62,7 @@ export async function updateVendor(id: string, formData: FormData) {
   }
 
   const { error } = await supabaseAdmin.from("vendors").update(update).eq("id", id);
-  if (error) throw new Error(error.message);
+  if (error) throw new Error(friendlyDbError(error.message));
 
   revalidatePath("/admin/vendors");
   revalidatePath("/vendors");
@@ -71,7 +72,7 @@ export async function updateVendor(id: string, formData: FormData) {
 export async function deleteVendor(id: string) {
   await requireAdminSession();
   const { error } = await supabaseAdmin.from("vendors").delete().eq("id", id);
-  if (error) throw new Error(error.message);
+  if (error) throw new Error(friendlyDbError(error.message));
 
   revalidatePath("/admin/vendors");
   revalidatePath("/vendors");

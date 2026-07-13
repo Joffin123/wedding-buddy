@@ -565,10 +565,10 @@ export default function InlineChat() {
     <div id="wb-chat" className="relative w-full">
       {/* Decorative glow */}
       <div aria-hidden className="pointer-events-none absolute -inset-4 -z-10">
-        <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-purple-200/30 via-pink-100/20 to-indigo-200/30 blur-3xl" />
+        <div className="absolute inset-0 rounded-4xl bg-gradient-to-br from-purple-200/30 via-pink-100/20 to-indigo-200/30 blur-3xl" />
       </div>
 
-      <div className="relative overflow-hidden rounded-[2rem] border border-purple-100/80 bg-white/90 backdrop-blur-2xl shadow-[0_30px_90px_-30px_rgba(139,49,199,0.25)]">
+      <div className="relative overflow-hidden rounded-4xl border border-purple-100/80 bg-white/90 backdrop-blur-2xl shadow-[0_30px_90px_-30px_rgba(139,49,199,0.25)]">
         <AnimatePresence mode="wait">
           {!onboardingDone ? (
             /* ══ Onboarding phase ══ */

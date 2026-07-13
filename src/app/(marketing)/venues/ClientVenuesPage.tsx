@@ -206,7 +206,7 @@ export default function ClientVenuesPage({ initialVenues, error }: { initialVenu
       {/* ── Image Section Break ── */}
       <section className="py-8 bg-white relative overflow-hidden">
         <div className="wb-container">
-          <div className="relative h-[300px] w-full rounded-[2rem] overflow-hidden shadow-md group">
+          <div className="relative h-[300px] w-full rounded-4xl overflow-hidden shadow-md group">
             <Image
               src="/images/kerala_backwater_wedding.png"
               alt="Kumarakom Destination Wedding Setup"
@@ -227,7 +227,7 @@ export default function ClientVenuesPage({ initialVenues, error }: { initialVenu
       {/* CTA strip (Stage 2 Dark Premium) */}
       <section className="pb-24 pt-10 bg-[#0E071A]">
         <div className="wb-container max-w-5xl">
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-[#3E2568]/45 bg-gradient-to-br from-[#1A0E2E] via-[#0E071A] to-[#120B24] p-10 sm:p-14 shadow-lg">
+          <div className="relative overflow-hidden rounded-4xl border border-[#3E2568]/45 bg-gradient-to-br from-[#1A0E2E] via-[#0E071A] to-[#120B24] p-10 sm:p-14 shadow-lg">
             {/* Background logo watermark */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden -z-10">
               <Image

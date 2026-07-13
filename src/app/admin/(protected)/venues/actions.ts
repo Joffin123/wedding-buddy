@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { requireAdminSession } from "@/lib/admin-auth";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { uploadAdminImage } from "@/lib/admin-upload";
+import { friendlyDbError } from "@/lib/format-db-error";
 
 function parseLines(value: FormDataEntryValue | null): string[] {
   return String(value || "")
@@ -41,7 +42,7 @@ export async function createVenue(formData: FormData) {
   }
 
   const { error } = await supabaseAdmin.from("venues").insert({ ...fields, image_path });
-  if (error) throw new Error(error.message);
+  if (error) throw new Error(friendlyDbError(error.message));
 
   revalidatePath("/admin/venues");
   revalidatePath("/venues");
@@ -59,7 +60,7 @@ export async function updateVenue(id: string, formData: FormData) {
   }
 
   const { error } = await supabaseAdmin.from("venues").update(update).eq("id", id);
-  if (error) throw new Error(error.message);
+  if (error) throw new Error(friendlyDbError(error.message));
 
   revalidatePath("/admin/venues");
   revalidatePath("/venues");
@@ -69,7 +70,7 @@ export async function updateVenue(id: string, formData: FormData) {
 export async function deleteVenue(id: string) {
   await requireAdminSession();
   const { error } = await supabaseAdmin.from("venues").delete().eq("id", id);
-  if (error) throw new Error(error.message);
+  if (error) throw new Error(friendlyDbError(error.message));
 
   revalidatePath("/admin/venues");
   revalidatePath("/venues");

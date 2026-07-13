@@ -1,7 +1,8 @@
-import Link from "next/link";
 import Image from "next/image";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { storageUrl, formatINR, type VenueRow } from "@/lib/supabase";
+import { friendlyDbError } from "@/lib/format-db-error";
+import { PageHeader, ErrorBanner, EmptyState, EditLink, Card } from "@/components/admin/ui";
 import DeleteButton from "@/components/admin/DeleteButton";
 import { deleteVenue } from "./actions";
 
@@ -15,26 +16,18 @@ export default async function AdminVenuesPage() {
   const venues = data ?? [];
 
   return (
-    <div>
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-display text-2xl font-bold text-[#111827]">Venues</h1>
-          <p className="mt-1 text-sm text-[#6B7280]">{venues.length} venues in the catalogue.</p>
-        </div>
-        <Link href="/admin/venues/new" className="rounded-xl bg-[#8B31C7] px-4 py-2.5 text-sm font-semibold text-white transition-all hover:bg-[#7a28b0]">
-          + Add venue
-        </Link>
-      </div>
+    <div className="space-y-6">
+      <PageHeader
+        title="Venues"
+        description={`${venues.length} venue${venues.length === 1 ? "" : "s"} in the catalogue.`}
+        action={{ href: "/admin/venues/new", label: "+ Add venue" }}
+      />
 
-      {error && (
-        <p className="mt-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-          Could not load venues: {error.message}
-        </p>
-      )}
+      {error && <ErrorBanner title="Could not load venues." message={friendlyDbError(error.message)} />}
 
-      <div className="mt-6 overflow-hidden rounded-2xl border border-purple-100 bg-white shadow-sm">
+      <Card className="overflow-hidden">
         <table className="w-full text-left text-sm">
-          <thead className="bg-[#F5F0FF] text-[10px] font-bold uppercase tracking-widest text-[#8B31C7]">
+          <thead className="bg-gray-50 text-[10px] font-bold uppercase tracking-widest text-[#9CA3AF]">
             <tr>
               <th className="px-4 py-3">Venue</th>
               <th className="px-4 py-3">Region</th>
@@ -48,10 +41,10 @@ export default async function AdminVenuesPage() {
             {venues.map((v) => {
               const img = storageUrl(v.image_path);
               return (
-                <tr key={v.id} className="border-t border-purple-50">
+                <tr key={v.id} className="border-t border-gray-100 transition-colors hover:bg-gray-50/60">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3">
-                      <div className="relative h-10 w-14 flex-shrink-0 overflow-hidden rounded-lg bg-gradient-to-br from-purple-100 to-pink-100">
+                      <div className="relative h-10 w-14 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
                         {img && <Image src={img} alt={v.name} fill className="object-cover" />}
                       </div>
                       <div>
@@ -60,15 +53,13 @@ export default async function AdminVenuesPage() {
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-[#374151]">{v.region}</td>
-                  <td className="px-4 py-3 text-[#374151]">{v.type}</td>
-                  <td className="px-4 py-3 text-[#374151]">{formatINR(v.price_from)}</td>
+                  <td className="px-4 py-3 text-[#4B5563]">{v.region}</td>
+                  <td className="px-4 py-3 text-[#4B5563]">{v.type}</td>
+                  <td className="px-4 py-3 text-[#4B5563]">{formatINR(v.price_from)}</td>
                   <td className="px-4 py-3">{v.featured ? "★" : "—"}</td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end gap-2">
-                      <Link href={`/admin/venues/${v.id}/edit`} className="rounded-lg border border-purple-200 px-2.5 py-1 text-xs font-semibold text-[#8B31C7] hover:bg-[#F5F0FF] transition-colors">
-                        Edit
-                      </Link>
+                      <EditLink href={`/admin/venues/${v.id}/edit`} />
                       <form action={deleteVenue.bind(null, v.id)}>
                         <DeleteButton confirmText={`Delete "${v.name}"? This can't be undone.`} />
                       </form>
@@ -77,16 +68,10 @@ export default async function AdminVenuesPage() {
                 </tr>
               );
             })}
-            {venues.length === 0 && !error && (
-              <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-sm text-[#9CA3AF]">
-                  No venues yet — add your first one.
-                </td>
-              </tr>
-            )}
           </tbody>
         </table>
-      </div>
+        {venues.length === 0 && !error && <EmptyState message="No venues yet — add your first one." />}
+      </Card>
     </div>
   );
 }
