@@ -240,7 +240,7 @@ function OnboardingWizard({ onComplete }: { onComplete: (data: WeddingContext) =
         {step === 1 && (
           <motion.div key="step1" variants={stepVariants} initial="enter" animate="center" exit="exit" className="w-full max-w-md text-center">
             <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8B31C7]">Step 1 of 3</p>
-            <h3 className="font-display text-2xl font-bold text-[#2A1A33]">How big is the celebration?</h3>
+            <h3 className="font-display text-xl sm:text-2xl font-bold text-[#2A1A33]">How big is the celebration?</h3>
             <p className="mt-2 text-sm text-[#2A1A33]/60">Expected number of guests</p>
             <div className="mt-6 grid grid-cols-2 gap-3">
               {CROWD_OPTIONS.map((opt) => (
@@ -263,7 +263,7 @@ function OnboardingWizard({ onComplete }: { onComplete: (data: WeddingContext) =
         {step === 2 && (
           <motion.div key="step2" variants={stepVariants} initial="enter" animate="center" exit="exit" className="w-full max-w-md text-center">
             <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8B31C7]">Step 2 of 3</p>
-            <h3 className="font-display text-2xl font-bold text-[#2A1A33]">Where in Kerala?</h3>
+            <h3 className="font-display text-xl sm:text-2xl font-bold text-[#2A1A33]">Where in Kerala?</h3>
             <p className="mt-2 text-sm text-[#2A1A33]/60">Pick your preferred district or region</p>
             <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {KERALA_DISTRICTS.map((d) => (
@@ -288,7 +288,7 @@ function OnboardingWizard({ onComplete }: { onComplete: (data: WeddingContext) =
         {step === 3 && (
           <motion.div key="step3" variants={stepVariants} initial="enter" animate="center" exit="exit" className="w-full max-w-md text-center">
             <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8B31C7]">Step 3 of 3</p>
-            <h3 className="font-display text-2xl font-bold text-[#2A1A33]">What&apos;s on the menu?</h3>
+            <h3 className="font-display text-xl sm:text-2xl font-bold text-[#2A1A33]">What&apos;s on the menu?</h3>
             <p className="mt-2 text-sm text-[#2A1A33]/60">Choose your preferred food style</p>
             <div className="mt-6 grid gap-3">
               {FOOD_OPTIONS.map((opt) => (
@@ -656,7 +656,7 @@ export default function InlineChat() {
                       transition={{ delay: 0.15 }}
                       className="rounded-3xl border border-purple-100 bg-gradient-to-br from-[#F5F0FF]/60 via-white to-pink-50/40 p-5 sm:p-6 shadow-sm"
                     >
-                      <p className="font-display text-xl sm:text-2xl font-normal leading-relaxed text-[#2A1A33] text-balance">
+                      <p className="font-display text-base sm:text-xl md:text-2xl font-normal leading-relaxed text-[#2A1A33] text-balance">
                         {language === "ml"
                           ? "നമസ്കാരം 🙏 ഞാൻ നിങ്ങളുടെ Wedding Buddy concierge ആണ്. നിങ്ങൾക്ക് ഇഷ്ടമുള്ള venue, vendor, അല്ലെങ്കിൽ inspiration ചോദിക്കൂ!"
                           : `Namaskaram 🙏 I already know you're planning for ${weddingContext?.crowd} guests in ${weddingContext?.place} with a ${weddingContext?.foodType} — ask me anything and I'll pull up real options with photos.`}

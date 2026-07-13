@@ -389,12 +389,12 @@ export default function BudgetClient({ externalUpdates }: BudgetClientProps) {
         <div className="flex flex-wrap items-center justify-between gap-6">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-[#8B31C7] mb-1">Grand Total · Estimated</p>
-            <p className="font-sans text-3xl font-bold text-[#111827]">{fmt(totalEst)}</p>
+            <p className="font-sans text-xl sm:text-3xl font-bold text-[#111827]">{fmt(totalEst)}</p>
           </div>
           {totalAct > 0 && (
             <div className="text-right">
               <p className="text-xs font-semibold uppercase tracking-widest text-[#9CA3AF] mb-1">Grand Total · Actual</p>
-              <p className={`font-sans text-3xl font-bold ${totalAct > totalEst ? "text-red-600" : "text-emerald-700"}`}>
+              <p className={`font-sans text-xl sm:text-3xl font-bold ${totalAct > totalEst ? "text-red-600" : "text-emerald-700"}`}>
                 {fmt(totalAct)}
               </p>
               <p className={`text-xs font-semibold mt-1 ${totalAct > totalEst ? "text-red-500" : "text-emerald-600"}`}>

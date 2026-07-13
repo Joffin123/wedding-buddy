@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DefaultChatTransport } from "ai";
 import type { UIMessage } from "ai";
+import type { BudgetIntake } from "@/components/BudgetOnboarding";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -39,16 +40,22 @@ const SUGGESTIONS = [
 
 interface BudgetChatProps {
   onBudgetUpdate: (updates: BudgetUpdate[]) => void;
+  weddingContext?: BudgetIntake | null;
 }
 
-export default function BudgetChat({ onBudgetUpdate }: BudgetChatProps) {
+export default function BudgetChat({ onBudgetUpdate, weddingContext }: BudgetChatProps) {
   const [language, setLanguage] = useState<"en" | "ml">("en");
   const [input, setInput] = useState("");
   const [lastApplied, setLastApplied] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const bodyRef = useRef<{ language: "en" | "ml" }>({ language: "en" });
-  bodyRef.current = { language };
+  // Ref so the transport always reads the latest language/context without
+  // recreating the transport (and losing the chat) on every render.
+  const bodyRef = useRef<{ language: "en" | "ml"; weddingContext?: BudgetIntake | null }>({
+    language: "en",
+    weddingContext: weddingContext ?? null,
+  });
+  bodyRef.current = { language, weddingContext: weddingContext ?? null };
 
   const transportRef = useRef(
     new DefaultChatTransport({
@@ -149,6 +156,8 @@ export default function BudgetChat({ onBudgetUpdate }: BudgetChatProps) {
             >
               {language === "ml"
                 ? "നമസ്കാരം 🙏 ഞാൻ നിങ്ങളുടെ budget assistant ആണ്. Guest count, location, total budget — ഇതൊക്കെ പറഞ്ഞാൽ ഞാൻ full budget create ചെയ്തു തരാം!"
+                : weddingContext
+                ? `Namaskaram 🙏 I already know you're planning for ${weddingContext.pax} guests${weddingContext.venueName ? ` at ${weddingContext.venueName}` : ""} with a ${weddingContext.foodType} menu — just say "build my budget" and I'll fill in every line item using those exact numbers.`
                 : "Namaskaram 🙏 Tell me about your wedding — guest count, location, budget ceiling — and I'll instantly fill in a realistic Kerala budget for you. You can then edit any line item manually."}
             </motion.div>
             <div>

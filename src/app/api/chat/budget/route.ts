@@ -98,9 +98,11 @@ export async function POST(req: Request) {
     const body = (await req.json()) as {
       messages?: UIMessage[];
       language?: "en" | "ml";
+      weddingContext?: { pax?: number; venueId?: string | null; venueName?: string | null; venuePrice?: number | null; foodType?: string };
     };
     const messages = body?.messages ?? [];
     const language = body?.language ?? "en";
+    const ctx = body?.weddingContext;
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return Response.json({ error: "messages is required" }, { status: 400 });
@@ -115,9 +117,13 @@ export async function POST(req: Request) {
         ? "\n\nIMPORTANT: Respond in Malayalam script. Tool calls stay in English."
         : "";
 
+    const contextAddendum = ctx
+      ? `\n\nUser-provided wedding details (collected before this chat opened via a quick setup wizard — treat as known, do NOT ask about these again):\n- Guest count (PAX): ${ctx.pax}\n${ctx.venueName ? `- Selected venue: ${ctx.venueName} (₹${ctx.venuePrice ?? "?"} starting price)\n` : "- No venue selected yet\n"}- Food style: ${ctx.foodType}\n\nUse the exact PAX count for any per-plate catering math (c1 for Sadya, c2 for Reception Dinner / Buffet or North Indian). If a venue with a price was given, keep that price for v1 (Ceremony Venue) unless the user explicitly asks to change it.`
+      : "";
+
     const result = streamText({
       model: anthropic(MODEL_ID),
-      system: SYSTEM_PROMPT + languageAddendum,
+      system: SYSTEM_PROMPT + languageAddendum + contextAddendum,
       messages: await convertToModelMessages(messages),
       temperature: 0.4,
       stopWhen: stepCountIs(3),

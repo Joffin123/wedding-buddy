@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -64,20 +65,24 @@ const NAV_LINKS = [
 
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
 
   const close = useCallback(() => setIsOpen(false), []);
 
-  // Close sidebar on route change
+  // Wait for client mount before portalling
+  useEffect(() => { setMounted(true); }, []);
+
+  // Close on route change
   useEffect(() => { close(); }, [pathname, close]);
 
-  // Lock body scroll when open
+  // Lock body scroll
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  // Close on Escape key
+  // Close on Escape
   useEffect(() => {
     function onKey(e: KeyboardEvent) { if (e.key === "Escape") close(); }
     window.addEventListener("keydown", onKey);
@@ -86,7 +91,7 @@ export default function MobileNav() {
 
   return (
     <>
-      {/* ── Hamburger button (mobile only) ── */}
+      {/* ── Hamburger button (stays inside header) ── */}
       <button
         onClick={() => setIsOpen(true)}
         aria-label="Open navigation menu"
@@ -97,94 +102,104 @@ export default function MobileNav() {
         <span className="block h-[2px] w-[22px] rounded-full bg-[#2A1A33] transition-all duration-300" />
       </button>
 
-      {/* ── Backdrop ── */}
-      <div
-        onClick={close}
-        className={`fixed inset-0 z-[60] bg-[#2A1A33]/50 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
-      />
-
-      {/* ── Sidebar drawer ── */}
-      <div
-        className={`fixed top-0 left-0 z-[70] flex h-full w-[82vw] max-w-[320px] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out md:hidden ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-        {/* Drawer header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-purple-100 bg-[#FFFAF0]/60">
-          <Link href="/" onClick={close} className="flex items-center gap-2.5 group">
-            <Image
-              src="/wedding-buddy-logo.png"
-              alt="Wedding Buddy"
-              width={28}
-              height={28}
-              className="h-7 w-7 object-contain"
-            />
-            <span className="font-display text-sm font-extrabold bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 bg-clip-text text-transparent">
-              Wedding Buddy
-            </span>
-          </Link>
-          <button
+      {/*
+        Portal: backdrop + sidebar are rendered at document.body level.
+        This is required because the <header> has backdrop-filter (backdrop-blur-md)
+        which creates a new CSS containing block — any position:fixed child inside
+        it gets clipped to the header box instead of the full viewport.
+      */}
+      {mounted && createPortal(
+        <>
+          {/* Backdrop */}
+          <div
             onClick={close}
-            aria-label="Close menu"
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-[#6B7280] hover:bg-purple-50 hover:text-[#8B31C7] transition-colors"
-          >
-            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
+            aria-hidden="true"
+            className={`fixed inset-0 z-[200] bg-[#2A1A33]/50 backdrop-blur-sm transition-opacity duration-300 ${
+              isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            }`}
+          />
 
-        {/* Nav links */}
-        <nav className="flex-1 overflow-y-auto px-3 py-5 space-y-0.5">
-          {NAV_LINKS.map((l) => {
-            const isActive = pathname === l.href || (l.href !== "/" && pathname.startsWith(l.href));
-            return (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={close}
-                className={`flex items-center gap-3.5 rounded-xl px-4 py-3.5 text-[15px] font-semibold transition-all duration-200 ${
-                  isActive
-                    ? "bg-[#F5F0FF] text-[#8B31C7]"
-                    : "text-[#374151] hover:bg-[#F9FAFB] hover:text-[#8B31C7]"
-                }`}
-              >
-                <span className={`flex-shrink-0 ${isActive ? "text-[#8B31C7]" : "text-[#9CA3AF]"}`}>
-                  {l.icon}
+          {/* Sidebar drawer */}
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+            className={`fixed top-0 left-0 z-[210] flex h-full w-[82vw] max-w-[320px] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out ${
+              isOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
+          >
+            {/* Drawer header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-purple-100 bg-[#FFFAF0]/70">
+              <Link href="/" onClick={close} className="flex items-center gap-2.5">
+                <Image
+                  src="/wedding-buddy-logo.png"
+                  alt="Wedding Buddy"
+                  width={28}
+                  height={28}
+                  className="h-7 w-7 object-contain"
+                />
+                <span className="font-display text-sm font-extrabold bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 bg-clip-text text-transparent">
+                  Wedding Buddy
                 </span>
-                {l.label}
-                {isActive && (
-                  <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#8B31C7]" />
-                )}
               </Link>
-            );
-          })}
-        </nav>
+              <button
+                onClick={close}
+                aria-label="Close menu"
+                className="flex h-9 w-9 items-center justify-center rounded-xl text-[#6B7280] hover:bg-purple-50 hover:text-[#8B31C7] transition-colors"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
 
-        {/* Bottom CTA area */}
-        <div className="border-t border-purple-100 bg-[#FFFAF0]/40 p-5 space-y-3">
-          <Link
-            href="/venues"
-            onClick={close}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 px-5 py-3.5 text-[15px] font-bold text-white shadow-md shadow-purple-500/20 transition-all hover:shadow-lg active:scale-[0.98]"
-          >
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 3l14 9-14 9V3z" />
-            </svg>
-            Get started
-          </Link>
-          <Link
-            href="/contact"
-            onClick={close}
-            className="flex w-full items-center justify-center rounded-xl border border-purple-100 bg-white px-5 py-3 text-sm font-semibold text-[#6B7280] transition-all hover:border-purple-300 hover:text-[#8B31C7] active:scale-[0.98]"
-          >
-            Sign in
-          </Link>
-          <p className="text-center text-[11px] text-[#9CA3AF] pt-1">© 2026 Wedding Buddy · Made in Kerala</p>
-        </div>
-      </div>
+            {/* Nav links */}
+            <nav className="flex-1 overflow-y-auto px-3 py-5 space-y-0.5">
+              {NAV_LINKS.map((l) => {
+                const isActive =
+                  pathname === l.href ||
+                  (l.href !== "/" && pathname.startsWith(l.href));
+                return (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    onClick={close}
+                    className={`flex items-center gap-3.5 rounded-xl px-4 py-3.5 text-[15px] font-semibold transition-all duration-150 ${
+                      isActive
+                        ? "bg-[#F5F0FF] text-[#8B31C7]"
+                        : "text-[#374151] hover:bg-[#F9FAFB] hover:text-[#8B31C7]"
+                    }`}
+                  >
+                    <span className={`flex-shrink-0 ${isActive ? "text-[#8B31C7]" : "text-[#9CA3AF]"}`}>
+                      {l.icon}
+                    </span>
+                    {l.label}
+                    {isActive && (
+                      <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#8B31C7]" />
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {/* Bottom CTA */}
+            <div className="border-t border-purple-100 bg-[#FFFAF0]/50 p-5">
+              <Link
+                href="/venues"
+                onClick={close}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 px-5 py-3.5 text-[15px] font-bold text-white shadow-md shadow-purple-500/20 transition-all active:scale-[0.98]"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 3l14 9-14 9V3z" />
+                </svg>
+                Get started
+              </Link>
+              <p className="mt-4 text-center text-[11px] text-[#9CA3AF]">© 2026 Wedding Buddy · Made in Kerala</p>
+            </div>
+          </div>
+        </>,
+        document.body
+      )}
     </>
   );
 }
