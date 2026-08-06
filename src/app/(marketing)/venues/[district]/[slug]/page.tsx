@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getDistrictBySlug } from "@/lib/kerala-venues";
-import { supabase, storageUrl, type VenueRow } from "@/lib/supabase";
+import { supabase, storageUrl, type VenueRow, type VenueHallRow } from "@/lib/supabase";
 import HallPricingClient from "@/components/HallPricingClient";
 import type { Hall } from "@/lib/kerala-venues";
 
@@ -12,6 +12,16 @@ export const dynamic = "force-dynamic";
 async function fetchVenue(slug: string): Promise<VenueRow | null> {
   const { data } = await supabase.from("venues").select("*").eq("slug", slug).maybeSingle<VenueRow>();
   return data ?? null;
+}
+
+async function fetchHalls(venueId: string): Promise<VenueHallRow[]> {
+  const { data } = await supabase
+    .from("venue_halls")
+    .select("*")
+    .eq("venue_id", venueId)
+    .order("sort_order", { ascending: true })
+    .returns<VenueHallRow[]>();
+  return data ?? [];
 }
 
 export async function generateMetadata({
@@ -36,18 +46,32 @@ export default async function VenueDetailPage({
   if (!venue || !districtData) notFound();
 
   const imageUrl = storageUrl(venue.image_path);
+  const hallRows = await fetchHalls(venue.id);
 
-  // The Supabase schema stores a single flat starting price per venue
-  // (no per-hall breakdown), so we present it as one "hall" row.
-  const halls: Hall[] = [
-    {
-      name: venue.name,
-      capacity: venue.capacity_max,
-      priceType: "flat",
-      price: venue.price_from,
-      minPax: venue.capacity_min || undefined,
-    },
-  ];
+  // Venues without dedicated halls fall back to one implied hall built from
+  // their own starting price/capacity.
+  const halls: Hall[] =
+    hallRows.length > 0
+      ? hallRows.map((h) => ({
+          name: h.name,
+          capacity: h.capacity,
+          priceType: h.price_type,
+          price: h.price,
+          minPax: h.min_pax ?? undefined,
+        }))
+      : [
+          {
+            name: venue.name,
+            capacity: venue.capacity_max,
+            priceType: "flat",
+            price: venue.price_from,
+            minPax: venue.capacity_min || undefined,
+          },
+        ];
+
+  const isHotel = halls.some((h) => h.priceType === "per_pax");
+  const minPrice = Math.min(...halls.map((h) => h.price));
+  const maxCapacity = Math.max(...halls.map((h) => h.capacity));
 
   return (
     <div className="w-full">
@@ -91,9 +115,9 @@ export default async function VenueDetailPage({
             {/* Stats row */}
             <div className="flex flex-wrap gap-2 sm:flex-nowrap sm:flex-col sm:items-end">
               {[
-                { label: "from (flat rate)", value: `₹${venue.price_from.toLocaleString()}` },
-                { label: "max guests", value: venue.capacity_max.toLocaleString() },
-                { label: "min guests", value: venue.capacity_min.toLocaleString() },
+                { label: isHotel ? "from (per pax)" : "from (flat rate)", value: `₹${minPrice.toLocaleString()}` },
+                { label: "max guests", value: maxCapacity.toLocaleString() },
+                { label: "halls", value: String(halls.length) },
               ].map((s) => (
                 <div key={s.label} className="rounded-xl border border-purple-100 bg-white px-4 py-2.5 text-center min-w-[110px] shadow-sm">
                   <p className="font-sans text-lg font-black text-[#111827]">{s.value}</p>
@@ -156,8 +180,8 @@ export default async function VenueDetailPage({
               {/* Pricing */}
               <HallPricingClient
                 halls={halls}
-                isHotel={false}
-                isConvention={false}
+                isHotel={isHotel}
+                isConvention={venue.type === "Convention Centre" || venue.type === "Convention Center"}
                 venueType={venue.type}
               />
 
@@ -165,7 +189,9 @@ export default async function VenueDetailPage({
               <div className="rounded-xl border border-[#FDE68A] bg-[#FFFBEB] p-5">
                 <p className="text-xs font-semibold text-[#92400E] uppercase tracking-wider mb-2">About these prices</p>
                 <p className="text-sm text-[#78350F] leading-relaxed">
-                  {`${venue.type} pricing is a flat hall rate per event. Catering, décor, and additional services are quoted separately by the property.`}
+                  {isHotel
+                    ? "Per-person pricing covers the banquet space, basic setup, and service staff. Catering is billed separately per plate. Minimum guest count applies."
+                    : `${venue.type} pricing is a flat hall rate per event. Catering, décor, and additional services are quoted separately by the property.`}
                 </p>
                 <p className="mt-2 text-xs text-[#92400E]/70">Prices are indicative and subject to property confirmation. GST applicable.</p>
               </div>

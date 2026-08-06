@@ -14,11 +14,17 @@ function seedFromIntake(intake: BudgetIntake): BudgetExternalUpdate[] {
   const { pax, foodType, venuePrice } = intake;
 
   if (pax > 0) {
+    // c1 (Sadya) and c2 (Reception Dinner/Buffet) are mutually exclusive
+    // defaults in the template — always set both so picking one food style
+    // doesn't leave the other's generic placeholder value behind.
     if (foodType === "Sadya") {
       updates.push({ id: "c1", estimated: Math.round(pax * 500) });
+      updates.push({ id: "c2", estimated: 0 });
     } else if (foodType === "Non-Veg Buffet") {
+      updates.push({ id: "c1", estimated: 0 });
       updates.push({ id: "c2", estimated: Math.round(pax * 1800) });
     } else if (foodType === "North Indian") {
+      updates.push({ id: "c1", estimated: 0 });
       updates.push({ id: "c2", estimated: Math.round(pax * 2000) });
     } else if (foodType === "Mixed") {
       updates.push({ id: "c1", estimated: Math.round(pax * 300) });

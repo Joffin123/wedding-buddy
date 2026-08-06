@@ -54,6 +54,18 @@ export type VendorRow = {
   created_at: string;
 };
 
+export type VenueHallRow = {
+  id: string;
+  venue_id: string;
+  name: string;
+  capacity: number;
+  price_type: "flat" | "per_pax";
+  price: number;
+  min_pax: number | null;
+  sort_order: number;
+  created_at: string;
+};
+
 export type GalleryRow = {
   id: string;
   title: string;
