@@ -85,7 +85,7 @@ export default function VendorsClient({ vendors, error }: { vendors: VendorRow[]
             src="/wedding-buddy-logo.png"
             alt=""
             width={650}
-            height={650}
+            height={582}
             className="opacity-[0.035] scale-125 object-contain"
           />
         </div>
@@ -282,7 +282,7 @@ export default function VendorsClient({ vendors, error }: { vendors: VendorRow[]
               src="/images/kerala_beach_reception.png"
               alt="Beachfront Varkala Reception Setup"
               fill
-              sizes="100vw"
+              sizes="(max-width: 1152px) 100vw, 1152px"
               className="object-cover transition-transform duration-[1.2s] group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent flex flex-col justify-end p-8 sm:p-12">
@@ -305,7 +305,7 @@ export default function VendorsClient({ vendors, error }: { vendors: VendorRow[]
                 src="/wedding-buddy-logo.png"
                 alt=""
                 width={500}
-                height={500}
+                height={448}
                 className="opacity-[0.02] invert scale-110 object-contain"
               />
             </div>

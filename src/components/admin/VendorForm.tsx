@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { storageUrl, type VendorRow } from "@/lib/supabase";
 import { Card, FormSection, fieldClass, labelClass, SubmitButton, CancelLink } from "@/components/admin/ui";
+import SlugPair from "@/components/admin/SlugPair";
 
 const CATEGORIES = ["Photographers", "Caterers", "Decorators", "Makeup Artists"];
 
@@ -19,16 +20,11 @@ export default function VendorForm({
     <form action={action}>
       <Card className="max-w-2xl space-y-6 p-6">
         <FormSection title="Basic info">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className={labelClass} htmlFor="name">Name</label>
-              <input id="name" name="name" required defaultValue={vendor?.name} className={fieldClass} />
-            </div>
-            <div>
-              <label className={labelClass} htmlFor="slug">Slug (URL-safe, unique)</label>
-              <input id="slug" name="slug" required defaultValue={vendor?.slug} placeholder="lens-and-light-studio" className={fieldClass} />
-            </div>
-          </div>
+          <SlugPair
+            defaultName={vendor?.name}
+            defaultSlug={vendor?.slug}
+            slugPlaceholder="lens-and-light-studio"
+          />
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>

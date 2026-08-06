@@ -165,7 +165,7 @@ export default function FeaturesPage() {
               src="/images/traditional_kerala_marriage.png"
               alt="Traditional Kerala Wedding Ceremony"
               fill
-              sizes="100vw"
+              sizes="(max-width: 1152px) 100vw, 1152px"
               className="object-cover transition-transform duration-[1.2s] group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent flex flex-col justify-end p-8 sm:p-12">
@@ -389,7 +389,7 @@ export default function FeaturesPage() {
               src="/images/kerala_beach_reception.png"
               alt="Kerala Beachfront Wedding Reception"
               fill
-              sizes="100vw"
+              sizes="(max-width: 1152px) 100vw, 1152px"
               className="object-cover transition-transform duration-[1.2s] group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent flex flex-col justify-end p-8 sm:p-12">

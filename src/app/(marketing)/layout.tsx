@@ -64,8 +64,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   src="/wedding-buddy-logo.png"
                   alt="Wedding Buddy"
                   width={30}
-                  height={30}
-                  className="h-7.5 w-7.5 object-contain group-hover:scale-110 transition-transform duration-300"
+                  height={27}
+                  className="w-7.5 object-contain group-hover:scale-110 transition-transform duration-300"
                   priority
                 />
                 <span className="font-display text-[10px] sm:text-[11px] font-black uppercase tracking-[0.16em] bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 bg-clip-text text-transparent group-hover:brightness-110 transition-all text-center">
@@ -95,7 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* Brand */}
               <div className="sm:col-span-2">
                 <Link href="/" className="flex items-center gap-3 group">
-                  <Image src="/wedding-buddy-logo.png" alt="Wedding Buddy" width={32} height={32} className="h-8 w-8 object-contain" />
+                  <Image src="/wedding-buddy-logo.png" alt="Wedding Buddy" width={32} height={29} className="w-8 object-contain" />
                   <span className="font-display text-lg font-extrabold bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 bg-clip-text text-transparent">Wedding Buddy</span>
                 </Link>
                 <p className="mt-3 max-w-xs text-sm leading-relaxed text-[#6B7280]">

@@ -6,6 +6,7 @@ import { requireAdminSession } from "@/lib/admin-auth";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 import { uploadAdminImage } from "@/lib/admin-upload";
 import { friendlyDbError } from "@/lib/format-db-error";
+import { slugify } from "@/lib/slugify";
 
 function parseLines(value: FormDataEntryValue | null): string[] {
   return String(value || "")
@@ -16,7 +17,7 @@ function parseLines(value: FormDataEntryValue | null): string[] {
 
 function readVendorFields(formData: FormData) {
   return {
-    slug: String(formData.get("slug") || "").trim(),
+    slug: slugify(String(formData.get("slug") || "")),
     category: String(formData.get("category") || "").trim(),
     name: String(formData.get("name") || "").trim(),
     tagline: String(formData.get("tagline") || "").trim(),

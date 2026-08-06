@@ -135,8 +135,8 @@ export default function MobileNav() {
                   src="/wedding-buddy-logo.png"
                   alt="Wedding Buddy"
                   width={28}
-                  height={28}
-                  className="h-7 w-7 object-contain"
+                  height={25}
+                  className="w-7 object-contain"
                 />
                 <span className="font-display text-sm font-extrabold bg-gradient-to-r from-[#8B31C7] to-fuchsia-600 bg-clip-text text-transparent">
                   Wedding Buddy

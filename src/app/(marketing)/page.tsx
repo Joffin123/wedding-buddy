@@ -102,7 +102,9 @@ export default function Home() {
 
   function handleSelect(id: string) {
     setSelected(id);
-    setTimeout(() => router.push(`/venues?type=${id}`), 160);
+    // /venues is a district selector, not a filterable grid, so there's
+    // nothing meaningful to pass through as a query param here.
+    setTimeout(() => router.push("/venues"), 160);
   }
 
   return (
@@ -116,7 +118,7 @@ export default function Home() {
             src="/wedding-buddy-logo.png"
             alt=""
             width={650}
-            height={650}
+            height={582}
             className="opacity-[0.035] scale-125 object-contain"
             priority
           />
@@ -200,7 +202,7 @@ export default function Home() {
               src="/images/traditional_kerala_marriage.png"
               alt="Traditional Kerala Wedding Ceremony"
               fill
-              sizes="100vw"
+              sizes="(max-width: 1152px) 100vw, 1152px"
               className="object-cover transition-transform duration-[1.2s] group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent flex flex-col justify-end p-8 sm:p-12">
@@ -221,7 +223,7 @@ export default function Home() {
             src="/wedding-buddy-logo.png"
             alt=""
             width={700}
-            height={700}
+            height={627}
             className="opacity-[0.025] invert scale-125 object-contain"
           />
         </div>
@@ -284,7 +286,7 @@ export default function Home() {
               src="/images/kerala_beach_reception.png"
               alt="Beachfront Wedding Reception"
               fill
-              sizes="100vw"
+              sizes="(max-width: 1152px) 100vw, 1152px"
               className="object-cover transition-transform duration-[1.2s] group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent flex flex-col justify-end p-8 sm:p-12">
@@ -328,7 +330,7 @@ export default function Home() {
               src="/images/kerala_backwater_wedding.png"
               alt="Backwater Wedding Setup"
               fill
-              sizes="100vw"
+              sizes="(max-width: 1152px) 100vw, 1152px"
               className="object-cover transition-transform duration-[1.2s] group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent flex flex-col justify-end p-8 sm:p-12">
@@ -377,7 +379,7 @@ export default function Home() {
             src="/wedding-buddy-logo.png"
             alt=""
             width={600}
-            height={600}
+            height={537}
             className="opacity-[0.02] invert scale-110 object-contain"
           />
         </div>

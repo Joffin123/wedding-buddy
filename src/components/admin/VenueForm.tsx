@@ -1,7 +1,10 @@
 import Image from "next/image";
 import { storageUrl, type VenueRow } from "@/lib/supabase";
 import { Card, FormSection, fieldClass, labelClass, SubmitButton, CancelLink } from "@/components/admin/ui";
+import SlugPair from "@/components/admin/SlugPair";
 
+// Every value here must have an entry in REGION_TO_DISTRICT (src/lib/kerala-regions.ts)
+// or the venue silently can't appear on any /venues/[district] page.
 const REGIONS = ["Kochi", "Kumarakom", "Munnar", "Thekkady", "Wayanad", "Varkala", "Thiruvananthapuram", "Kollam", "Alappuzha", "Thrissur", "Palakkad", "Kozhikode", "Kannur", "Kasaragod"];
 const TYPES = ["Palace", "Resort", "Beachfront", "Heritage", "Estate", "Houseboat"];
 
@@ -16,20 +19,21 @@ export default function VenueForm({
 }) {
   const currentImage = venue ? storageUrl(venue.image_path) : null;
 
+  // Preserve whatever is already saved even if it predates the current
+  // REGIONS/TYPES list — otherwise opening + resaving an old venue would
+  // silently swap its region/type to the select's first option.
+  const regionOptions = venue?.region && !REGIONS.includes(venue.region) ? [venue.region, ...REGIONS] : REGIONS;
+  const typeOptions = venue?.type && !TYPES.includes(venue.type) ? [venue.type, ...TYPES] : TYPES;
+
   return (
     <form action={action}>
       <Card className="max-w-2xl space-y-6 p-6">
         <FormSection title="Basic info">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label className={labelClass} htmlFor="name">Name</label>
-              <input id="name" name="name" required defaultValue={venue?.name} className={fieldClass} />
-            </div>
-            <div>
-              <label className={labelClass} htmlFor="slug">Slug (URL-safe, unique)</label>
-              <input id="slug" name="slug" required defaultValue={venue?.slug} placeholder="bolgatty-palace" className={fieldClass} />
-            </div>
-          </div>
+          <SlugPair
+            defaultName={venue?.name}
+            defaultSlug={venue?.slug}
+            slugPlaceholder="bolgatty-palace"
+          />
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
@@ -38,19 +42,17 @@ export default function VenueForm({
             </div>
             <div>
               <label className={labelClass} htmlFor="region">Region</label>
-              <input id="region" name="region" required defaultValue={venue?.region} list="regions" className={fieldClass} />
-              <datalist id="regions">
-                {REGIONS.map((r) => <option key={r} value={r} />)}
-              </datalist>
+              <select id="region" name="region" required defaultValue={venue?.region ?? REGIONS[0]} className={fieldClass}>
+                {regionOptions.map((r) => <option key={r} value={r}>{r}</option>)}
+              </select>
             </div>
           </div>
 
           <div>
             <label className={labelClass} htmlFor="type">Type</label>
-            <input id="type" name="type" required defaultValue={venue?.type} list="types" className={fieldClass} />
-            <datalist id="types">
-              {TYPES.map((t) => <option key={t} value={t} />)}
-            </datalist>
+            <select id="type" name="type" required defaultValue={venue?.type ?? TYPES[0]} className={fieldClass}>
+              {typeOptions.map((t) => <option key={t} value={t}>{t}</option>)}
+            </select>
           </div>
 
           <div>
